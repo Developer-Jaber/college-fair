@@ -9,6 +9,16 @@
   --accent: #1c3d4b;
 }
 
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.perspective-1000 {
+  perspective: 1000px;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

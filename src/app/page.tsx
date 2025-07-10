@@ -1,5 +1,6 @@
 
 import CampusMapSection from '@/components/CampusMapSection';
+import CollegeCards from '@/components/CollegeCards';
 import Features from '@/components/Features';
 import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
@@ -18,6 +19,9 @@ export default function Home() {
 
     {/* Steps section */}
     <Steps></Steps>
+
+    {/* College Cards section */}
+    <CollegeCards></CollegeCards>
 
     {/* Campus Map section */}
     <CampusMapSection></CampusMapSection>
