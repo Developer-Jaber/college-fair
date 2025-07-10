@@ -5,6 +5,7 @@ import Features from '@/components/Features';
 import Footer from '@/components/Footer';
 import GraduateGallery from '@/components/GraduateGallery';
 import Hero from '@/components/Hero';
+import ResearchPapers from '@/components/ResearchPapers';
 import Steps from '@/components/Steps';
 import React from 'react';
 
@@ -26,6 +27,9 @@ export default function Home() {
 
     {/* Graduate Gallery section */}
     <GraduateGallery></GraduateGallery>
+
+    {/* Research Papers section */}
+    <ResearchPapers></ResearchPapers>
 
     {/* Campus Map section */}
     <CampusMapSection></CampusMapSection>
