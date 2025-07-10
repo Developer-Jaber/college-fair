@@ -27,7 +27,7 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-16">
+    <section className="flex justify-center items-center min-h-screen">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -37,7 +37,7 @@ const Features = () => {
           className="mb-12 text-center"
         >
           <h2 className="mb-4 font-bold text-gray-900 text-3xl md:text-4xl">
-            <span className="bg-clip-text bg-gradient-to-r from-primary to-secondary text-transparent">
+            <span className="bg-clip-text bg-gradient-to-r from-primary to-secondary">
               Why Choose Us?
             </span>
           </h2>

@@ -1,6 +1,7 @@
 
 import Features from '@/components/Features';
 import Hero from '@/components/Hero';
+import Steps from '@/components/Steps';
 import React from 'react';
 
 export default function Home() {
@@ -11,6 +12,9 @@ export default function Home() {
 
     {/* Features section */}
     <Features></Features>
+
+    {/* Steps section */}
+    <Steps></Steps>
     </>
   );
 }
