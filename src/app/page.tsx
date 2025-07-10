@@ -3,6 +3,7 @@ import CampusMapSection from '@/components/CampusMapSection';
 import CollegeCards from '@/components/CollegeCards';
 import Features from '@/components/Features';
 import Footer from '@/components/Footer';
+import GraduateGallery from '@/components/GraduateGallery';
 import Hero from '@/components/Hero';
 import Steps from '@/components/Steps';
 import React from 'react';
@@ -22,6 +23,9 @@ export default function Home() {
 
     {/* College Cards section */}
     <CollegeCards></CollegeCards>
+
+    {/* Graduate Gallery section */}
+    <GraduateGallery></GraduateGallery>
 
     {/* Campus Map section */}
     <CampusMapSection></CampusMapSection>
