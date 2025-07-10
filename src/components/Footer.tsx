@@ -64,7 +64,7 @@ const Footer = () => {
               width: `${10 + Math.random() * 30}px`,
               height: `${10 + Math.random() * 30}px`,
               top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`
+              left: `${Math.random() * 100}%` 
             }}
           />
         ))}
