@@ -1,6 +1,7 @@
 
 import CampusMapSection from '@/components/CampusMapSection';
 import CollegeCards from '@/components/CollegeCards';
+import CollegeReviews from '@/components/CollegeReviews';
 import Features from '@/components/Features';
 import Footer from '@/components/Footer';
 import GraduateGallery from '@/components/GraduateGallery';
@@ -33,6 +34,9 @@ export default function Home() {
 
     {/* Campus Map section */}
     <CampusMapSection></CampusMapSection>
+
+    {/* College Reviews section */}
+    <CollegeReviews></CollegeReviews>
 
     {/* Footer section */}
     <Footer></Footer>
