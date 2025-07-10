@@ -27,19 +27,22 @@ const Navbar = () => {
   // Nav links
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Facilities", href: "/facilities" },
-    { name: "Bookings", href: "/bookings" },
+    { name: "College", href: "/college" },
+    { name: "Admission", href: "/admission" },
+    { name: "My College", href: "/my-college" },
+    // { name: "Facilities", href: "/facilities" },
+    // { name: "Bookings", href: "/bookings" },
     { name: "Dashboard", href: "/dashboard" },
     { name: "Contact", href: "/contact" },
   ];
 
   return (
     <header
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/90 shadow-md backdrop-blur-sm" : "bg-transparent"
+      className={`fixed w-full z-50  transition-all duration-300 ${
+        scrolled ? "bg-white/90 shadow-md py-2 backdrop-blur-sm" : "bg-transparent py-8"
       }`}
     >
-      <nav className="mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
+      <nav className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
@@ -71,7 +74,7 @@ const Navbar = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-primary px-4 py-2 rounded-md font-medium text-white"
+              className="bg-[var(--primary)] px-4 py-2 rounded-md font-medium text-white"
             >
               Sign In
             </motion.button>
