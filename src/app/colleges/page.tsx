@@ -9,7 +9,7 @@ const colleges = [
   {
     id: 1,
     name: "Stanford University",
-    image: "https://i.ibb.co/6Jgfr7xh/image.png",
+    image: "https://i.ibb.co/2K8Q0f8/image.png",
     rating: 4.8,
     reviews: 1245,
     admission: "Fall 2024: Jan 5 - Apr 1",
