@@ -13,7 +13,7 @@ import olivia from './../../public/avatar/Olivia Smith.png';
 
 const CollegeReviews = () => {
   const [activeFilter, setActiveFilter] = useState('all');
-  const [expandedReview, setExpandedReview] = useState(null);
+  const [expandedReview, setExpandedReview] = useState<number | null>(null);
 
   const colleges = [
     { id: 'stanford', name: 'Stanford University' },
@@ -170,7 +170,7 @@ const CollegeReviews = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                {[5, 4, 3, 2, 1].map(rating => (
+                {([5, 4, 3, 2, 1] as (1 | 2 | 3 | 4 | 5)[]).map((rating) => (
                   <div key={rating} className="flex items-center">
                     <span className="w-8 text-gray-600 text-sm">{rating} star</span>
                     <div className="flex-1 bg-gray-200 mx-2 rounded-full h-2 overflow-hidden">
