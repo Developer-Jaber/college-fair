@@ -301,15 +301,6 @@ export default function CollegeListing() {
   const [showFilters, setShowFilters] = useState(false);
 
 //   // Filter and sort colleges
-
-//   const filteredColleges = colleges
-//     .filter(college => 
-//       college.name.toLowerCase().includes(searchQuery.toLowerCase())
-//     .sort((a, b) => {
-//       if (sortBy === 'rating') return b.rating - a.rating;
-//       if (sortBy === 'research') return b.research - a.research;
-//       return 0;
-//     });
 const filteredColleges = colleges
   .filter(college => 
     college.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -322,7 +313,7 @@ const filteredColleges = colleges
 
 
   return (
-    <div className="bg-gray-50 px-4 sm:px-6 lg:px-8 py-12 min-h-screen">
+    <div className="bg-[var(--bg-color)] px-4 sm:px-6 lg:px-8 py-32 min-h-screen">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <motion.div 
@@ -330,8 +321,8 @@ const filteredColleges = colleges
           animate={{ opacity: 1, y: 0 }}
           className="mb-12 text-center"
         >
-          <h1 className="mb-4 font-bold text-gray-900 text-4xl md:text-5xl">
-            <span className="bg-clip-text bg-gradient-to-r from-primary to-secondary text-transparent">
+          <h1 className="mb-4 font-bold text-[var(--text-color)] text-4xl md:text-5xl">
+            <span className="bg-clip-text bg-gradient-to-r from-primary to-secondary">
               Explore Top Colleges
             </span>
           </h1>
