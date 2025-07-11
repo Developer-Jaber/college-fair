@@ -27,7 +27,7 @@ const Navbar = () => {
   // Nav links
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "College", href: "/college" },
+    { name: "College", href: "/colleges" },
     { name: "Admission", href: "/admission" },
     { name: "My College", href: "/my-college" },
     // { name: "Facilities", href: "/facilities" },
