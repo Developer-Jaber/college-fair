@@ -21,7 +21,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const colleges = [
-  { id: 1, name: 'Stanford University', logo: 'https://i.ibb.co/2K8Q0f8/image.png' },
+  { id: 1, name: 'Stanford University', logo: 'https://i.ibb.co/6Jgfr7xh/image.png' },
   { id: 2, name: 'Harvard University', logo: 'https://i.ibb.co/fGxqfbnp/image.png' },
   { id: 3, name: 'MIT', logo: 'https://i.ibb.co/pBbSsXgq/image.png'},
 ];
@@ -275,9 +275,9 @@ export default function AdmissionPortal() {
                         />
                       </label>
                     </div>
-                    {errors.image && (
+                    {/* {errors.image && (
                       <p className="mt-1 text-red-600 text-sm">{errors.image.message}</p>
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>

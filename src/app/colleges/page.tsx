@@ -9,7 +9,7 @@ const colleges = [
   {
     id: 1,
     name: "Stanford University",
-    image: "https://i.ibb.co/2K8Q0f8/image.png",
+    image: "https://i.ibb.co/6Jgfr7xh/image.png",
     rating: 4.8,
     reviews: 1245,
     admission: "Fall 2024: Jan 5 - Apr 1",
@@ -351,7 +351,7 @@ const filteredColleges = colleges
           <div className="flex gap-2">
             <button 
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg"
+              className="flex items-center gap-2 bg-[var(--accent)] hover:bg-gray-200 px-4 py-2 rounded-lg text-amber-50"
             >
               <FiFilter />
               <span>Filters</span>
