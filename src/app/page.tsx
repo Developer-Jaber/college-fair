@@ -3,7 +3,6 @@ import CampusMapSection from '@/components/CampusMapSection';
 import CollegeCards from '@/components/CollegeCards';
 import CollegeReviews from '@/components/CollegeReviews';
 import Features from '@/components/Features';
-import Footer from '@/components/Footer';
 import GraduateGallery from '@/components/GraduateGallery';
 import Hero from '@/components/Hero';
 import ResearchPapers from '@/components/ResearchPapers';
@@ -37,9 +36,6 @@ export default function Home() {
 
     {/* College Reviews section */}
     <CollegeReviews></CollegeReviews>
-
-    {/* Footer section */}
-    <Footer></Footer>
     </>
   );
 }

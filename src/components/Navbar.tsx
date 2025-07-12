@@ -5,10 +5,14 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "./../../public/logo/college-fair-logo.png"; 
+import {  signIn } from "next-auth/react"
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+
 
   // Close mobile menu when clicking a link
   const closeMenu = () => setIsOpen(false);
@@ -74,10 +78,12 @@ const Navbar = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => signIn()}
               className="bg-[var(--primary)] px-4 py-2 rounded-md font-medium text-white"
             >
               Sign In
             </motion.button>
+
           </div>
 
           {/* Mobile Menu Button */}
@@ -116,7 +122,10 @@ const Navbar = () => {
                     {link.name}
                   </Link>
                 ))}
-                <button className="bg-primary px-4 py-2 rounded-md w-full font-medium text-white">
+         
+                <button
+                className="bg-primary px-4 py-2 rounded-md w-full font-medium text-white"
+                >
                   Sign In
                 </button>
               </div>
