@@ -1,6 +1,6 @@
 // app/api/items/[id]/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import dbConnect from "@/lib/dbConnect";
+import dbConnect, { collectionNames } from "@/lib/dbConnect";
 import { ObjectId } from "mongodb";
 
 export async function GET(
@@ -9,7 +9,7 @@ export async function GET(
 ) {
   const { id } = await context.params;
 
-  const item = await dbConnect("products").findOne({
+  const item = await dbConnect(collectionNames.PRODUCTS).findOne({
     _id: new ObjectId(id),
   });
 
@@ -22,7 +22,7 @@ export async function DELETE(
 ) {
   const { id } = await context.params;
 
-  const result = await dbConnect("items").deleteOne({
+  const result = await dbConnect(collectionNames.PRODUCTS).deleteOne({
     _id: new ObjectId(id),
   });
 
@@ -36,7 +36,7 @@ export async function PATCH(
   const { id } = await context.params;
   const data = await req.json();
 
-  const result = await dbConnect("items").updateOne(
+  const result = await dbConnect(collectionNames.PRODUCTS).updateOne(
     { _id: new ObjectId(id) },
     { $set: data },
     { upsert: true }
