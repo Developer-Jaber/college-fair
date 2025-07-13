@@ -76,15 +76,17 @@ const Navbar = () => {
                 />
               </Link>
             ))}
-            <motion.button
+           
+            <Link href={"/register"}>
+               <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => signIn()}
+              // onClick={() => signIn()}
               className="bg-[var(--primary)] px-4 py-2 rounded-md font-medium text-white"
             >
-              Sign In
+              Sign Up
             </motion.button>
-
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
