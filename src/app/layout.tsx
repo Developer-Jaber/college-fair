@@ -1,20 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { geist } from '@/fonts/geist';
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import NextAuthSessionProvider from "@/Providers/NextAuthSessionProvider";
 import Footer from "@/components/Footer";
 
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "CampusSpot | Book College Facilities Online",
@@ -31,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <NextAuthSessionProvider>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={geist.variable}
       >
         <Navbar></Navbar>
         {children}
