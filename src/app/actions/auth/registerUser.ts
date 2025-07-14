@@ -1,7 +1,7 @@
 "use server";
 import bcrypt from "bcrypt";
 import dbConnect, { collectionNames } from "@/lib/dbConnect";
-import { success } from "zod";
+
 
 export const registerUser = async (payload) => {
     const userCollection = await dbConnect(collectionNames.USERS);

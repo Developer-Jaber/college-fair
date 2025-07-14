@@ -13,8 +13,6 @@ export default function ProductAddForm() {
       price: parseFloat(formData.get("price") as string),
     };
 
-    console.log("Submitting:", productData);
-
     try {
       const res = await fetch("/api/items", {
         method: "POST",

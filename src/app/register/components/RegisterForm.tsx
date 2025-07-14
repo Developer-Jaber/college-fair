@@ -5,8 +5,8 @@ import * as z from 'zod'
 import { FiUser, FiMail, FiLock, FiArrowRight } from 'react-icons/fi'
 import Link from 'next/link'
 import { useState } from 'react'
-// import { useRouter } from 'next/navigation'
 import { registerUser } from '@/app/actions/auth/registerUser'
+import { useRouter } from 'next/navigation'
 
 const registerSchema = z
   .object({
@@ -27,7 +27,7 @@ const registerSchema = z
 export default function RegisterForm () {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
-//   const router = useRouter()
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -41,21 +41,8 @@ export default function RegisterForm () {
     setError('')
 
     try {
-      // const response = await fetch('http://localhost:3000/api/auth/register', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify(data)
-      // })
-
-      // if (!response.ok) {
-      //   const errorData = await response.json()
-      //   throw new Error(errorData.message || 'Registration failed')
-      // }
-      console.log(data);
-        await registerUser(data);
-    //   router.push('/dashboard')
+      await registerUser(data)
+      router.push('/')
     } catch (err) {
       setError(err.message || 'Registration failed. Please try again.')
     } finally {

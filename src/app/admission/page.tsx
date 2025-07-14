@@ -43,7 +43,6 @@ export default function AdmissionPortal() {
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
-    console.log('Submitting:', { college: selectedCollege, ...data });
     
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
