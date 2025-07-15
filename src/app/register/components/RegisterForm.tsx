@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { registerUser } from '@/app/actions/auth/registerUser'
 import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 
 const registerSchema = z
   .object({
@@ -42,11 +43,24 @@ export default function RegisterForm () {
 
     try {
       await registerUser(data)
-      router.push('/')
     } catch (err) {
       setError(err.message || 'Registration failed. Please try again.')
     } finally {
+      const result = await signIn('credentials', {
+        redirect: false,
+        email: data.email,
+        password: data.password
+      })
+
+      if (result?.error) {
+        throw new Error(result.error)
+      }
+
+      if (result?.ok) {
+        router.push('/')
+      }
       setIsSubmitting(false)
+      router.push('/')
     }
   }
   return (

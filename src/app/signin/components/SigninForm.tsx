@@ -45,7 +45,7 @@ export default function SigninForm () {
       }
 
       if (result?.ok) {
-        router.push('/dashboard')
+        router.push('/')
       }
     
     } catch (err) {

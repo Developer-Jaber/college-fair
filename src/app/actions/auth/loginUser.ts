@@ -2,16 +2,43 @@
 import bcrypt from 'bcrypt';
 
 import dbConnect, { collectionNames } from "@/lib/dbConnect";
+import { LoginPayload, User } from '@/types';
 
 
-export const loginUser = async (paylode) => {
 
-    const { email, password } = paylode;
+export const loginUser = async (payload: LoginPayload): Promise<User | null> => {
+  try {
+    const { email, password } = payload;
 
     const userCollection = await dbConnect(collectionNames.USERS);
-    const user = await userCollection.findOne({ email });
-    if (!user) return null
-    const isPasswordOk = await bcrypt.compare(password, user.password)
-    if (!isPasswordOk) return null
+    const user = await userCollection.findOne<User>({ email });
+    
+    if (!user) return null;
+    
+    const isPasswordOk = await bcrypt.compare(password, user.password);
+    if (!isPasswordOk) return null;
+    
     return user;
-}
+  } catch (error) {
+    console.error('Login error:', error);
+    return null;
+  }
+};
+
+
+
+
+
+
+
+// export const loginUser = async (paylode) => {
+
+//     const { email, password } = paylode;
+
+//     const userCollection = await dbConnect(collectionNames.USERS);
+//     const user = await userCollection.findOne({ email });
+//     if (!user) return null
+//     const isPasswordOk = await bcrypt.compare(password, user.password)
+//     if (!isPasswordOk) return null
+//     return user;
+// }

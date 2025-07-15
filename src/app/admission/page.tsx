@@ -41,7 +41,7 @@ export default function AdmissionPortal() {
     resolver: zodResolver(formSchema)
   });
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async () => {
     setIsSubmitting(true);
     
     // Simulate API call
