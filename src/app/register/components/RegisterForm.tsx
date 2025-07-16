@@ -44,7 +44,13 @@ export default function RegisterForm () {
     try {
       await registerUser(data)
     } catch (err) {
-      setError(err.message || 'Registration failed. Please try again.')
+      if (err instanceof Error) {
+        setError(err.message)
+      } else if (typeof err === 'string') {
+        setError(err)
+      } else {
+        setError('Registration failed. Please try again.')
+      }
     } finally {
       const result = await signIn('credentials', {
         redirect: false,

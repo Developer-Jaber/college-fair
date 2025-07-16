@@ -33,7 +33,27 @@ export default function SigninForm () {
     setIsLoading(true)
     setError('')
 
-    try {
+    // try {
+    //   const result = await signIn('credentials', {
+    //     redirect: false,
+    //     email: data.email,
+    //     password: data.password
+    //   })
+
+    //   if (result?.error) {
+    //     throw new Error(result.error)
+    //   }
+
+    //   if (result?.ok) {
+    //     router.push('/')
+    //   }
+    
+    // } catch (err) {
+    //   setError(err.message || 'Invalid credentials. Please try again.')
+    // } finally {
+    //   setIsLoading(false)
+    // }
+     try {
       const result = await signIn('credentials', {
         redirect: false,
         email: data.email,
@@ -47,13 +67,20 @@ export default function SigninForm () {
       if (result?.ok) {
         router.push('/')
       }
-    
     } catch (err) {
-      setError(err.message || 'Invalid credentials. Please try again.')
+      // Type-safe error handling
+      if (err instanceof Error) {
+        setError(err.message)
+      } else if (typeof err === 'string') {
+        setError(err)
+      } else {
+        setError('Invalid credentials. Please try again.')
+      }
     } finally {
       setIsLoading(false)
     }
   }
+  
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='space-y-5 p-6'>
       {error && (

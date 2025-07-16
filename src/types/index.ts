@@ -23,7 +23,6 @@ export interface RegisterPayload {
   email: string;
   password: string;
   confirmPassword: string;
-  [key: string]: any; // For additional fields
 }
 
 export interface RegistrationResult {
