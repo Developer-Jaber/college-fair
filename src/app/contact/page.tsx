@@ -47,7 +47,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-blue-50 px-4 sm:px-6 lg:px-8 py-12 min-h-screen">
+    <div className="bg-gradient-to-br from-gray-50 to-blue-50 px-4 sm:px-6 lg:px-8 py-42 min-h-screen">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <motion.div
