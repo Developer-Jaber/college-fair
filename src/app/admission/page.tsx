@@ -66,7 +66,7 @@ export default function AdmissionPortal () {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ college: selectedCollege, ...data }),
+        body: JSON.stringify({ college: selectedCollege,status: 'pending', ...data }),
       });
 
       const result = await res.json();
@@ -75,7 +75,7 @@ export default function AdmissionPortal () {
     } catch (error) {
       console.error("Error submitting product:", error);
     }
-    router.push("/college");
+    router.push("/my-college");
     reset();
     setIsSubmitting(false)
     alert('Application submitted successfully!')
@@ -141,6 +141,7 @@ export default function AdmissionPortal () {
             {/* Form Header */}
             <div className='flex items-center p-6 border-b'>
               <button
+                title='Set college'
                 onClick={() => setSelectedCollege(null)}
                 className='hover:bg-gray-100 mr-4 p-2 rounded-full'
               >
