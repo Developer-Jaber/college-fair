@@ -40,7 +40,7 @@ export default function AdmissionPortal () {
     typeof colleges[0] | null
   >(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const router = useRouter();
+  const router = useRouter()
 
   const {
     register,
@@ -61,25 +61,29 @@ export default function AdmissionPortal () {
     await new Promise(resolve => setTimeout(resolve, 1500))
 
     try {
-      const res = await fetch("/api/admission", {
-        method: "POST",
+      const res = await fetch('/api/admission', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ college: selectedCollege,status: 'pending', ...data }),
-      });
+        body: JSON.stringify({
+          college: selectedCollege,
+          status: 'pending',
+          appliedAt: new Date().toISOString(),
+          ...data
+        })
+      })
 
-      const result = await res.json();
-      console.log("Server response:", result);
-
+      const result = await res.json()
+      console.log('Server response:', result)
     } catch (error) {
-      console.error("Error submitting product:", error);
+      console.error('Error submitting product:', error)
     }
-    router.push("/my-college");
-    reset();
+    router.push('/my-college')
+    reset()
     setIsSubmitting(false)
     alert('Application submitted successfully!')
-    
+
     setSelectedCollege(null)
   }
 
