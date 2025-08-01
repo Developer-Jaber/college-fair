@@ -325,7 +325,7 @@ export default function AdmissionPortal () {
                     </div>
                     {errors.image && (
                       <p className='mt-1 text-red-600 text-sm'>
-                        {errors.image.message}
+                        {/* {errors.image.message} */}
                       </p>
                     )}
                   </div>

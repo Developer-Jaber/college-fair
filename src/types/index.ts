@@ -31,3 +31,26 @@ export interface RegistrationResult {
   insertedId?: string;
   error?: string;
 }
+
+export interface AdmissionData {
+  college: {
+    id: number
+    name: string
+    logo: string
+  }
+  name: string
+  email: string
+  phone: string
+  address: string
+  dob: string
+  subject: string
+  image: string
+  status: string
+  appliedAt: string
+}
+
+export interface AdmissionState {
+  userAdmissions: AdmissionData[]
+  loading: boolean
+  error: string | null
+}
