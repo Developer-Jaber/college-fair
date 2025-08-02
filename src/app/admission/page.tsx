@@ -7,6 +7,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '../store'
+import {
+  submitAdmissionFailure,
+  submitAdmissionStart,
+  submitAdmissionSuccess
+} from '../features/admission/admissionSlice'
 
 // Define form schema
 const formSchema = z.object({
@@ -39,8 +46,10 @@ export default function AdmissionPortal () {
   const [selectedCollege, setSelectedCollege] = useState<
     typeof colleges[0] | null
   >(null)
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  // const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
+  const dispatch = useDispatch<AppDispatch>()
+  const { loading } = useSelector((state: RootState) => state.admission)
 
   const {
     register,
@@ -54,7 +63,9 @@ export default function AdmissionPortal () {
   })
 
   const onSubmit = async (data: FormData) => {
-    setIsSubmitting(true)
+    dispatch(submitAdmissionStart())
+
+    // setIsSubmitting(true)
     console.log('Submitting:', { college: selectedCollege, ...data })
 
     // Simulate API call
@@ -75,16 +86,21 @@ export default function AdmissionPortal () {
       })
 
       const result = await res.json()
-      console.log('Server response:', result)
-    } catch (error) {
-      console.error('Error submitting product:', error)
-    }
-    router.push('/my-college')
-    reset()
-    setIsSubmitting(false)
-    alert('Application submitted successfully!')
 
-    setSelectedCollege(null)
+      if (res.ok) {
+        dispatch(submitAdmissionSuccess(result))
+        router.push('/my-college')
+        reset()
+        // setIsSubmitting(false)
+        alert('Application submitted successfully!')
+        setSelectedCollege(null)
+      } else {
+        throw new Error(result.message || 'Failed to submit application')
+      }
+    } catch (error) {
+      dispatch(submitAdmissionFailure(error.message))
+      alert('Failed to submit application: ' + error.message)
+    }
   }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -334,7 +350,7 @@ export default function AdmissionPortal () {
 
               {/* Form Footer */}
               <div className='flex justify-end mt-8'>
-                <button
+                {/* <button
                   type='submit'
                   disabled={isSubmitting}
                   className={`px-8 py-3 rounded-lg font-medium text-white ${
@@ -344,6 +360,17 @@ export default function AdmissionPortal () {
                   }`}
                 >
                   {isSubmitting ? 'Submitting...' : 'Submit Application'}
+                </button> */}
+                <button
+                  type='submit'
+                  disabled={loading}
+                  className={`px-8 py-3 rounded-lg font-medium text-white ${
+                    loading
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 shadow-md'
+                  }`}
+                >
+                  {loading ? 'Submitting...' : 'Submit Application'}
                 </button>
               </div>
             </form>

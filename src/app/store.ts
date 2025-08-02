@@ -1,8 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import admissionReducer from './features/admission/admissionSlice'
+import reducer from "./features/admission/admissionSlice";
+// import admissionReducer from './features/admission/admissionSlice'
 
 export const store = configureStore({
-    reducer: admissionReducer
+    reducer: {
+        admission: reducer
+    }
 })
 
 export type RootState = ReturnType<typeof store.getState>
