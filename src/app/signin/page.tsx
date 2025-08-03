@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import SigninForm from './components/SigninForm'
+import SocialLoginForm from '@/components/SocialLoginForm'
 
 export default function SignInPage () {
   return (
@@ -22,33 +23,7 @@ export default function SignInPage () {
         <SigninForm></SigninForm>
 
         {/* Social Login */}
-        <div className='px-6 pb-6'>
-          <div className='relative'>
-            <div className='absolute inset-0 flex items-center'>
-              <div className='border-gray-300 border-t w-full'></div>
-            </div>
-            <div className='relative flex justify-center text-sm'>
-              <span className='bg-white px-2 text-gray-500'>
-                Or continue with
-              </span>
-            </div>
-          </div>
-
-          <div className='gap-3 grid grid-cols-2 mt-6'>
-            <button
-              type='button'
-              className='inline-flex justify-center bg-white hover:bg-gray-50 shadow-sm px-4 py-2 border border-gray-300 rounded-xl w-full font-medium text-gray-700 text-sm'
-            >
-              Google
-            </button>
-            <button
-              type='button'
-              className='inline-flex justify-center bg-white hover:bg-gray-50 shadow-sm px-4 py-2 border border-gray-300 rounded-xl w-full font-medium text-gray-700 text-sm'
-            >
-              GitHub
-            </button>
-          </div>
-        </div>
+        <SocialLoginForm></SocialLoginForm>
       </motion.div>
     </div>
   )

@@ -143,30 +143,6 @@ export default function RegisterForm () {
         )}
       </div>
 
-      <div>
-        <label className='block mb-1 font-medium text-gray-700 text-sm'>
-          Confirm Password
-        </label>
-        <div className='relative'>
-          <div className='left-0 absolute inset-y-0 flex items-center pl-3 pointer-events-none'>
-            <FiLock className='text-gray-400' />
-          </div>
-          <input
-            {...register('confirmPassword')}
-            type='password'
-            className={`pl-10 w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-              errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
-            }`}
-            placeholder='••••••••'
-          />
-        </div>
-        {errors.confirmPassword && (
-          <p className='mt-1 text-red-600 text-sm'>
-            {errors.confirmPassword.message}
-          </p>
-        )}
-      </div>
-
       <button
         type='submit'
         disabled={isSubmitting}
