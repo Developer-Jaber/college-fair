@@ -14,6 +14,7 @@ import {
   submitAdmissionStart,
   submitAdmissionSuccess
 } from '../features/admission/admissionSlice'
+import { useSession } from 'next-auth/react'
 
 // Define form schema
 const formSchema = z.object({
@@ -43,6 +44,7 @@ const colleges = [
 ]
 
 export default function AdmissionPortal () {
+  const { data: session } = useSession();  
   const [selectedCollege, setSelectedCollege] = useState<
     typeof colleges[0] | null
   >(null)
@@ -218,6 +220,7 @@ export default function AdmissionPortal () {
                     </label>
                     <input
                       {...register('email')}
+                      value={session?.user?.email || ''}
                       className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
                         errors.email ? 'border-red-500' : 'border-gray-300'
                       }`}

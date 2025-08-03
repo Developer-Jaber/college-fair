@@ -104,7 +104,7 @@ const Hero = () => {
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-[var(--accent)] hover:bg-gray-50 px-8 py-3 border-2 border-primary rounded-lg font-semibold text-[white] transition-all"
+                className="bg-[var(--accent)] hover:bg-gray-50 px-8 py-3 border-2 border-primary rounded-lg font-semibold text-[white] hover:text-[var(--text)] transition-all"
               >
                 How It Works
               </motion.button>
