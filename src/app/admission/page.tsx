@@ -99,10 +99,15 @@ export default function AdmissionPortal () {
       } else {
         throw new Error(result.message || 'Failed to submit application')
       }
-    } catch (error) {
-      dispatch(submitAdmissionFailure(error.message))
-      alert('Failed to submit application: ' + error.message)
-    }
+    } catch (error: unknown) {
+    const errorMessage = error instanceof Error 
+      ? error.message 
+      : 'Failed to submit admission'
+    
+    dispatch(submitAdmissionFailure(errorMessage))
+    alert(`Failed to submit application: ${errorMessage}`)
+    console.error('Admission submission error:', error)
+  }
   }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
