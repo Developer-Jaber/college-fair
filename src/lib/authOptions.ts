@@ -6,6 +6,19 @@ import { NextAuthOptions } from "next-auth";
 import { User as CustomUser } from "@/types";
 import GoogleProvider from "next-auth/providers/google";
 
+// validate the environment variavles
+function getGoogleCredentials() {
+  const clientId = process.env.GOOGLE_CLIENT_ID
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET
+
+  if(!clientId || !clientSecret){
+    throw new Error("Google Client ID and Secret must set in .env file.")
+  }
+
+  return { clientId, clientSecret }
+
+}
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -38,10 +51,7 @@ export const authOptions: NextAuthOptions = {
         };
       },
     }),
-    GoogleProvider({
-    clientId: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET
-  })
+    GoogleProvider(getGoogleCredentials())
   ],
   
   pages: {

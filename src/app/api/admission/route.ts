@@ -58,10 +58,14 @@ export async function DELETE(req: Request) {
 
     revalidatePath("/admission")
     return NextResponse.json({ success: true})
-  } catch (error) {
+  } catch (error: unknown) {
+    const errorMassege = error instanceof Error ? error.message : 'Faild to delete admission'
+
+    console.log('Delete admission error:' , errorMassege)
+    
     return NextResponse.json(
-      { error: 'Failed to delete admission' },
-      { status: 500 }
+      { error: errorMassege },
+      {status: 500 }
     )
   }
 

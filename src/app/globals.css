@@ -25,10 +25,11 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 /* Smooth scroll for modal */
-.overflow-y-auto {
+/* .overflow-y-auto {
   scrollbar-width: thin;
   scrollbar-color: #3fcd88 #f0fce6;
-}
+} */
+ 
 .overflow-y-auto::-webkit-scrollbar {
   width: 8px;
 }
