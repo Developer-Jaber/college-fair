@@ -2,9 +2,18 @@ import { User as NextAuthUser } from "next-auth";
 
 declare module "next-auth" {
   interface User extends NextAuthUser {
-    id: string;
-    email: string;
+    _id?: string
+    email?: string;
+    password?: string
     name?: string;
+  }
+
+  interface Profile {
+    picture?: string
+    given_name?: string
+    family_name?: string
+    name?: string;
+    email?:string;
   }
 
   interface Session {
@@ -12,4 +21,10 @@ declare module "next-auth" {
       id: string;
     };
   }
+}
+
+
+export interface CustomAdapterUser extends AdapterUser {
+  _id?: string
+  password?: string
 }

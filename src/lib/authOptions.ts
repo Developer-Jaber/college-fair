@@ -2,16 +2,17 @@
 // src/lib/authOptions.ts
 import CredentialsProvider from "next-auth/providers/credentials";
 import { loginUser } from "@/app/actions/auth/loginUser";
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, Profile } from "next-auth";
 import { User as CustomUser } from "@/types";
 import GoogleProvider from "next-auth/providers/google";
+import dbConnect, { collectionNames } from "./dbConnect";
 
 // validate the environment variavles
 function getGoogleCredentials() {
   const clientId = process.env.GOOGLE_CLIENT_ID
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET
 
-  if(!clientId || !clientSecret){
+  if (!clientId || !clientSecret) {
     throw new Error("Google Client ID and Secret must set in .env file.")
   }
 
@@ -53,9 +54,58 @@ export const authOptions: NextAuthOptions = {
     }),
     GoogleProvider(getGoogleCredentials())
   ],
-  
+
   pages: {
     signIn: "/signin",
   },
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      // Handle credentials login
+      if (!account || account.provider === 'credentials') {
+        return true
+      }
+
+      // Type guard for social providers
+      if (account.provider && user.email) {
+        try {
+          // Safe type casting for profile
+          const socialProfile = profile as (Profile & {
+            picture?: string
+            given_name?: string
+            family_name?: string
+          }) | undefined
+
+          const userData = {
+            name: user.name ||
+              socialProfile?.name ||
+              `${socialProfile?.given_name || ''} ${socialProfile?.family_name || ''}`.trim() ||
+              'Unknown User',
+            email: user.email,
+            image: user.image || socialProfile?.picture,
+            provider: account.provider,
+            lastLogin: new Date()
+          }
+
+          await dbConnect(collectionNames.USERS).updateOne(
+            { email: userData.email },
+            {
+              $set: userData,
+              $setOnInsert: {
+                createdAt: new Date(),
+                verified: true
+              }
+            },
+            { upsert: true }
+          )
+          return true
+        } catch (error) {
+          console.error('User data update failed:', error)
+          return false
+        }
+      }
+
+      return false
+    },
+  }
 };
 

@@ -16,6 +16,19 @@ export interface User {
   _id: string;
   email: string;
   password: string;
+  name: string
+  image?: string
+  provider?: string
+  createdAt?: Date
+  lastLogin?: Date
+}
+
+export interface CustomProfile {
+  picture?: string;
+  name?: string;
+  email?:string;
+  given_name?: string;
+  family_name?: string;
 }
 
 

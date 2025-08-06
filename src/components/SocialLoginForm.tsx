@@ -8,11 +8,11 @@ type Provider = 'google'
 
 export default function SocialLoginForm() {
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState<Provider | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSocialLogin = async (provider: Provider) => {
     try {
-      setIsLoading(provider)
+      setIsLoading(true)
       const result = await signIn(provider, {
         redirect: false,
         callbackUrl: '/'
@@ -34,7 +34,7 @@ export default function SocialLoginForm() {
       )
       console.error('Login error:', error)
     } finally {
-      setIsLoading(null)
+      setIsLoading(false)
     }
   }
 
@@ -55,15 +55,15 @@ export default function SocialLoginForm() {
         <button
           type="button"
           onClick={() => handleSocialLogin('google')}
-          disabled={isLoading === 'google'}
+          disabled={isLoading === true}
           className={`inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-xl w-full font-medium text-sm ${
-            isLoading === 'google'
+            isLoading === true
               ? 'bg-gray-100 cursor-not-allowed'
               : 'bg-white hover:bg-gray-50 shadow-sm'
           }`}
         >
           <FaGoogle className="mr-4" />
-          {isLoading === 'google' ? 'Processing...' : 'Google'}
+          {isLoading === true ? 'Processing...' : 'Google'}
         </button>
       </div>
     </div>
