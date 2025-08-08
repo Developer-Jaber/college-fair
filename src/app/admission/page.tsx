@@ -48,7 +48,7 @@ export default function AdmissionPortal () {
   const [selectedCollege, setSelectedCollege] = useState<
     typeof colleges[0] | null
   >(null)
-  // const [isSubmitting, setIsSubmitting] = useState(false)
+
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
   const { loading } = useSelector((state: RootState) => state.admission)

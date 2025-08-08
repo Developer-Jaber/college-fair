@@ -9,7 +9,8 @@ export const collectionNames = {
   CATEGORIES: "categories",
   CARTS: "carts",
   ADMISSION: "admission",
-  MY_COLLEGE: "my-college"
+  MY_COLLEGE: "my-college",
+  COLLEGES: 'colleges'
 }
 
 function dbConnect (collectionName: string){

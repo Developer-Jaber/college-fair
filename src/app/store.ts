@@ -1,10 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import reducer from "./features/admission/admissionSlice";
-// import admissionReducer from './features/admission/admissionSlice'
+import admissionReducer from "./features/admission/admissionSlice"
+import collegesReducer from "./features/colleges/collegesSlice"
+
 
 export const store = configureStore({
     reducer: {
-        admission: reducer
+        admission: admissionReducer,
+        colleges: collegesReducer
+
     }
 })
 

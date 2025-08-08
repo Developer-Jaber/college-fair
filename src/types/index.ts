@@ -67,3 +67,18 @@ export interface AdmissionState {
   loading: boolean
   error: string | null
 }
+
+
+
+export interface College {
+  id: number
+  name: string
+  image: string
+  rating: number
+  reviews: number
+  admission: string
+  research: number
+  events: string[]
+  sports: string[]
+}
+
