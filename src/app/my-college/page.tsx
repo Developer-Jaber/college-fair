@@ -37,6 +37,7 @@ export default function MyCollegePage () {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
+  
 
   useEffect(() => {
     const fetchApplications = async () => {

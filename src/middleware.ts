@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
     const protectedRoutes = [
         '/dashboard',
         '/profile',
-        'http://localhost:3000/my-college',
+        '/my-college',
     ]
 
     // auth routes that should rdirect if logged in
@@ -27,7 +27,7 @@ export async function middleware(request: NextRequest) {
 
     // 2. redirect authenticated users from auth routes
     if(token && authRoutes.includes(pathname)) {
-        return NextResponse.redirect(new URL('/dashboard', request.url))
+        return NextResponse.redirect(new URL('/my-college', request.url))
     }
 
     return NextResponse.next()
