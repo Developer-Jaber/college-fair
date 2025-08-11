@@ -12,7 +12,7 @@ import {
 import Image from 'next/image'
 import CollegeDetailsModal from '@/components/CollegeDetailsModal'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '../store'
+import { AppDispatch, RootState } from '../../store'
 import {
   fetchCollegesFailure,
   fetchCollegesStart,
@@ -20,7 +20,7 @@ import {
   setSearchQuery,
   setSelectedCollege,
   setSortBy
-} from '../features/colleges/collegesSlice'
+} from '../../features/colleges/collegesSlice'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 

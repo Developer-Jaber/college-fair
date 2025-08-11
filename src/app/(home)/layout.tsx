@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import { geist } from '@/fonts/geist'
-import './globals.css'
+import '../globals.css'
+import Navbar from '@/components/Navbar'
 import NextAuthSessionProvider from '@/Providers/NextAuthSessionProvider'
-import { Providers } from './providers'
+import Footer from '@/components/Footer'
+import { Providers } from '../providers'
 
 export const metadata: Metadata = {
   title: {
@@ -71,7 +73,9 @@ export default function RootLayout ({
       <NextAuthSessionProvider>
         <body className={geist.variable}>
           <Providers>
+            <Navbar></Navbar>
             {children}
+            <Footer></Footer>
           </Providers>
         </body>
       </NextAuthSessionProvider>

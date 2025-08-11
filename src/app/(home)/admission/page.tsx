@@ -8,12 +8,12 @@ import * as z from 'zod'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '../store'
+import { AppDispatch, RootState } from '../../store'
 import {
   submitAdmissionFailure,
   submitAdmissionStart,
   submitAdmissionSuccess
-} from '../features/admission/admissionSlice'
+} from '../../features/admission/admissionSlice'
 import { useSession } from 'next-auth/react'
 
 // Define form schema
