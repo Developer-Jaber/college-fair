@@ -3,6 +3,7 @@ import { geist } from '@/fonts/geist'
 import './globals.css'
 import NextAuthSessionProvider from '@/Providers/NextAuthSessionProvider'
 import { Providers } from './providers'
+import { ThemeProvider } from '@/components/providers/theme-provider'
 
 export const metadata: Metadata = {
   title: {
@@ -70,9 +71,16 @@ export default function RootLayout ({
     <html lang='en'>
       <NextAuthSessionProvider>
         <body className={geist.variable}>
+          <ThemeProvider 
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+            >
           <Providers>
             {children}
           </Providers>
+          </ThemeProvider>
         </body>
       </NextAuthSessionProvider>
     </html>
