@@ -31,11 +31,10 @@ const Navbar = () => {
     { name: 'Home', href: '/' },
     { name: 'College', href: '/colleges' },
     { name: 'Admission', href: '/admission' },
-    { name: 'My College', href: '/my-college' },
-    // { name: 'Products', href: '/products' },
-    // { name: 'Add', href: '/products/add' },
-    // { name: "Bookings", href: "/bookings" },
+    ...(session?.user?.email?[
+       { name: 'My College', href: '/my-college' },
     { name: 'Dashboard', href: '/dashboard' },
+    ] : []),
     { name: 'Contact', href: '/contact' }
   ]
 
