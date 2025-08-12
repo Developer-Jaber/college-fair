@@ -1,4 +1,4 @@
-
+'use client'
 import '../globals.css'
 import NextAuthSessionProvider from '@/Providers/NextAuthSessionProvider'
 import { Providers } from '../providers'

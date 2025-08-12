@@ -30,7 +30,7 @@ export default function CollegeListing () {
   const {status} = useSession()
   const router = useRouter()
 
-  const { colleges, searchQuery, loading, error, sortBy, selectedCollege } =
+  const { colleges, searchQuery, sortBy, selectedCollege } =
     useSelector((state: RootState) => state.colleges)
 
   useEffect(() => {
@@ -61,8 +61,6 @@ export default function CollegeListing () {
       sortBy === 'rating' ? b.rating - a.rating : b.research - a.research
     )
 
-  if (loading) return <div>Loding college...</div>
-  if (error) return <div>Error {error}</div>
 
   return (
     <div className='bg-[var(--bg-color)] px-4 sm:px-6 lg:px-8 py-32 min-h-screen'>
