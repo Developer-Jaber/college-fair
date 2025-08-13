@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import SectionTitle from "./SectionTitle";
 
 const Steps = () => {
   const steps = [
@@ -42,22 +43,7 @@ const Steps = () => {
     <section className="bg-gradient-to-br from-blue-50 dark:from-gray-900 to-amber-50 dark:to-gray-800 py-20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl container">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="mb-16 text-center"
-        >
-          <h2 className="mb-4 font-bold text-gray-900 dark:text-white text-4xl md:text-5xl">
-            <span className="bg-clip-text bg-gradient-to-r from-blue-600 to-amber-500 text-transparent">
-              Simple Admission Process
-            </span>
-          </h2>
-          <p className="mx-auto max-w-2xl text-gray-600 dark:text-gray-300 text-lg">
-            Join your dream college in just 3 easy steps
-          </p>
-        </motion.div>
+        <SectionTitle title='Simple Admission Process' subtitle='Join your dream college in just 3 easy steps'></SectionTitle>
 
         {/* Steps Container */}
         <div className="relative">

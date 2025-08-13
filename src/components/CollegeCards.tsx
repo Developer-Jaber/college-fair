@@ -4,6 +4,7 @@ import { FaCalendarAlt, FaFlask, FaRunning, FaChevronRight } from "react-icons/f
 import Stanford from "./../../public/collegeimg/stanford.png";
 import Harverd from "./../../public/collegeimg/harvard.png";
 import MIT from "./../../public/collegeimg/mit.png";
+import SectionTitle from "./SectionTitle";
 
 const CollegeCards = () => {
   const colleges = [
@@ -40,20 +41,7 @@ const CollegeCards = () => {
     <section className="bg-gradient-to-b from-[#f0fce6] to-[#4325ba]/5 py-20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="mb-16 text-center"
-        >
-          <h2 className="mb-4 font-bold text-gray-900 text-4xl md:text-5xl">
-            <span className="bg-clip-text bg-gradient-to-r from-primary to-secondary text-[vr(--text)]">
-              Featured Institutions
-            </span>
-          </h2>
-          <p className="mx-auto max-w-3xl text-gray-600 text-xl">
-            Partner colleges with world-class facilities
-          </p>
-        </motion.div>
+        <SectionTitle title="Featured Institutions" subtitle="Partner colleges with world-class facilities"></SectionTitle>
 
         {/* College Cards Grid */}
         <div className="gap-8 grid grid-cols-1 md:grid-cols-3">

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPinIcon, ClockIcon, CalendarIcon } from '@heroicons/react/24/outline';
+import SectionTitle from './SectionTitle';
 
 // Sample campus building data
 const campusBuildings = [
@@ -52,20 +53,7 @@ export default function CampusMapSection() {
     <section className="bg-gray-50 py-20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Section Header */}
-        <div className="mb-16 text-center">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="mb-4 font-bold text-gray-900 text-4xl md:text-5xl"
-          >
-            <span className="bg-clip-text bg-gradient-to-r from-primary to-secondary">
-              Explore Campus Facilities
-            </span>
-          </motion.h2>
-          <p className="mx-auto max-w-3xl text-gray-600 text-xl">
-            Click any building to check availability and book instantly
-          </p>
-        </div>
+        <SectionTitle title="Explore Campus Facilities" subtitle="Click any building to check availability and book instantly"></SectionTitle>
 
         {/* Interactive Map Container */}
         <div className="relative bg-white shadow-xl rounded-2xl h-[500px] overflow-hidden">

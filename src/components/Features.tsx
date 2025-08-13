@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { AcademicCapIcon, CalendarIcon, ClockIcon, UserGroupIcon } from "@heroicons/react/24/outline";
+import SectionTitle from "./SectionTitle";
 
 const Features = () => {
   const features = [
@@ -29,22 +30,8 @@ const Features = () => {
   return (
     <section className="flex justify-center items-center min-h-screen">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-12 text-center"
-        >
-          <h2 className="mb-4 font-bold text-gray-900 text-3xl md:text-4xl">
-            <span className="bg-clip-text bg-gradient-to-r from-primary to-secondary">
-              Why Choose Us?
-            </span>
-          </h2>
-          <p className="mx-auto max-w-2xl text-gray-600 text-lg">
-            Simplify campus life with our intuitive booking platform.
-          </p>
-        </motion.div>
+        {/* Titel section */}
+        <SectionTitle title="Why Choose Us?" subtitle="Simplify campus life with our intuitive booking platform."></SectionTitle>
 
         <div className="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {features.map((feature, index) => (

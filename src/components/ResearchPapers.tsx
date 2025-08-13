@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiDownload, FiExternalLink, FiFilter, FiBarChart2, FiCalendar, FiUser } from 'react-icons/fi';
+import SectionTitle from './SectionTitle';
 
 const ResearchPapers = () => {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -98,20 +99,7 @@ const ResearchPapers = () => {
     <section className="bg-gray-50 py-20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="mb-16 text-center"
-        >
-          <h2 className="mb-4 font-bold text-gray-900 text-4xl md:text-5xl">
-            <span className="bg-clip-text bg-gradient-to-r from-primary to-secondary text-[">
-              Student Research Publications
-            </span>
-          </h2>
-          <p className="mx-auto max-w-3xl text-gray-600 text-xl">
-            Groundbreaking work from our academic community
-          </p>
-        </motion.div>
+        <SectionTitle title=" Student Research Publications" subtitle="Groundbreaking work from our academic community"></SectionTitle>
 
         {/* Filter Tabs */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">

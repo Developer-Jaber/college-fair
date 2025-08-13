@@ -82,3 +82,8 @@ export interface College {
   sports: string[]
 }
 
+// For a simple component prop
+export interface StepProps {
+  title: string;
+  subtitle:string,
+}

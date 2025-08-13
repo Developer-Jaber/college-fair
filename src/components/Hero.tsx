@@ -71,7 +71,7 @@ const Hero = () => {
             variants={itemVariants}
             className="mb-6 font-bold text-gray-900 text-4xl md:text-6xl"
           >
-            <span className="bg-clip-text bg-gradient-to-r from-primary to-secondary text-transparent">
+            <span className="text-gray-800">
               Book College Facilities
             </span>{" "}
             <br />

@@ -9,6 +9,7 @@ import medicine1 from './../../public/Graduationpicture/medicine1.png';
 import medicine2 from './../../public/Graduationpicture/medicine2.png';
 import business1 from './../../public/Graduationpicture/business1.png';
 import arts1 from './../../public/Graduationpicture/arts1.png';
+import SectionTitle from './SectionTitle';
 
 const GraduateGallery = () => {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -86,20 +87,7 @@ const GraduateGallery = () => {
     <section className="bg-white py-20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="mb-16 text-center"
-        >
-          <h2 className="mb-4 font-bold text-[var(--text)] text-4xl md:text-5xl">
-            <span className="bg-clip-text bg-gradient-to-r from-primary to-secondary">
-              Our Legacy of Graduates
-            </span>
-          </h2>
-          <p className="mx-auto max-w-3xl text-[var(--text)] text-xl">
-            Celebrating the achievements of our alumni community
-          </p>
-        </motion.div>
+        <SectionTitle title="Our Legacy of Graduates" subtitle="Celebrating the achievements of our alumni community"></SectionTitle>
 
         {/* Filter Tabs */}
         <motion.div className="flex flex-wrap justify-center gap-2 mb-12">
@@ -137,7 +125,7 @@ const GraduateGallery = () => {
                 {/* Background Image */}
                 <div
                   className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-all duration-500"
-                  style={{ backgroundImage: `url(${grad.image})` }}
+                  // style={{ backgroundImage: `url(${grad.image})` }}
                 />
 
                 {/* Gradient Overlay */}

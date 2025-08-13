@@ -9,6 +9,7 @@ import jamalwilliams from './../../public/avatar/Jamal Williams.png';
 import sophia from './../../public/avatar/Sophia Rodriguez.png';
 import ethan from './../../public/avatar/Ethan Park.png';
 import olivia from './../../public/avatar/Olivia Smith.png';
+import SectionTitle from './SectionTitle';
 
 
 const CollegeReviews = () => {
@@ -107,20 +108,7 @@ const CollegeReviews = () => {
     <section className="bg-gradient-to-br from-[#f0fce6] to-[#4325ba]/5 py-20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="mb-16 text-center"
-        >
-          <h2 className="mb-4 font-bold text-gray-900 text-4xl md:text-5xl">
-            <span className="bg-clip-text bg-gradient-to-r from-primary to-secondary text-[vr(--text)]">
-              Student Experiences
-            </span>
-          </h2>
-          <p className="mx-auto max-w-3xl text-gray-600 text-xl">
-            Honest reviews from current students and alumni
-          </p>
-        </motion.div>
+        <SectionTitle title="Student Experiences" subtitle="Honest reviews from current students and alumni"></SectionTitle>
 
         <div className="flex lg:flex-row flex-col gap-8">
           {/* Filters & Rating Summary */}
