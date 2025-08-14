@@ -7,10 +7,23 @@ import Image from 'next/image'
 import logo from './../../public/logo/college-fair-logo.png'
 import { signOut, useSession } from 'next-auth/react'
 
+interface NavLink {
+  name: string,
+  href: string,
+  requiresAuth?: boolean
+}
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const { data: session } = useSession()
+  const { status } = useSession()
+  const [isMounted, setIsMounted] = useState(false)
+
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
 
   // Close mobile menu when clicking a link
   const closeMenu = () => setIsOpen(false)
@@ -27,16 +40,19 @@ const Navbar = () => {
   }, [])
 
   // Nav links
-  const navLinks = [
+  const navLinks: NavLink[] = [
     { name: 'Home', href: '/' },
     { name: 'College', href: '/colleges' },
     { name: 'Admission', href: '/admission' },
-    ...(session?.user?.email?[
-       { name: 'My College', href: '/my-college' },
-    { name: 'Dashboard', href: '/dashboard' },
-    ] : []),
+    { name: 'My College', href: '/my-college', requiresAuth: true},
+    { name: 'Dashboard', href: '/dashboard', requiresAuth: true},
     { name: 'Contact', href: '/contact' }
   ]
+
+  // filter links based on auth status
+  const filteredLinks = navLinks.filter(link => 
+    !link.requiresAuth || (link.requiresAuth && status === "authenticated")
+  )
 
   return (
     <header
@@ -66,7 +82,7 @@ const Navbar = () => {
 
           {/* Desktop Nav Links */}
           <div className='hidden md:flex items-center space-x-8'>
-            {navLinks.map(link => (
+            {filteredLinks.map(link => (
               <Link
                 key={link.name}
                 href={link.href}
@@ -81,7 +97,7 @@ const Navbar = () => {
               </Link>
             ))}
 
-            {session?.user?.email ? (
+            {isMounted && status === 'authenticated' ? (
               
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -93,7 +109,7 @@ const Navbar = () => {
                 </motion.button>
               
             ) : (
-              <Link href={'/register'}>
+              <Link href={'/register'} passHref>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -132,7 +148,7 @@ const Navbar = () => {
               className='md:hidden overflow-hidden'
             >
               <div className='space-y-2 px-2 pt-2 pb-4'>
-                {navLinks.map(link => (
+                {filteredLinks.map(link => (
                   <Link
                     key={link.name}
                     href={link.href}
@@ -143,9 +159,25 @@ const Navbar = () => {
                   </Link>
                 ))}
 
-                <button className='bg-primary px-4 py-2 rounded-md w-full font-medium text-white'>
-                  Sign In
-                </button>
+                {isMounted && status === 'authenticated' ? (
+                  <button
+                    onClick={() => {
+                      closeMenu()
+                      signOut()
+                    }}
+                    className='bg-primary px-4 py-2 rounded-md w-full font-medium text-white'
+                  >
+                    Sign Out
+                  </button>
+                ) : (
+                  <Link
+                    href='/register'
+                    onClick={closeMenu}
+                    className='block bg-primary px-4 py-2 rounded-md w-full font-medium text-white text-center'
+                  >
+                    Sign Up
+                  </Link>
+                )}
               </div>
             </motion.div>
           )}
