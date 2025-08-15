@@ -358,17 +358,6 @@ export default function AdmissionPortal () {
 
               {/* Form Footer */}
               <div className='flex justify-end mt-8'>
-                {/* <button
-                  type='submit'
-                  disabled={isSubmitting}
-                  className={`px-8 py-3 rounded-lg font-medium text-white ${
-                    isSubmitting
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 shadow-md'
-                  }`}
-                >
-                  {isSubmitting ? 'Submitting...' : 'Submit Application'}
-                </button> */}
                 <button
                   type='submit'
                   disabled={loading}

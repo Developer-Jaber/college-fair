@@ -5,35 +5,39 @@ import { RegisterPayload, RegistrationResult } from "@/types";
 
 export const registerUser = async (payload: RegisterPayload): Promise<RegistrationResult> => {
   try {
-    const { email, password, confirmPassword } = payload;
-    const userCollection = await dbConnect(collectionNames.USERS);
+    const { name, email, password } = payload;
 
     // Validation
-    if (!email || !password || !confirmPassword) {
-      return { success: false, error: "All fields are required" };
+    if ( !name || !email || !password ) {
+       throw new Error("All fields are required");
     }
 
-    if (password !== confirmPassword) {
-      return { success: false, error: "Passwords do not match" };
-    }
+
+    const userCollection = await dbConnect(collectionNames.USERS);
 
     // Check if user exists
     const existingUser = await userCollection.findOne({ email });
     if (existingUser) {
-      return { success: false, error: "User already exists" };
+      throw new Error  ("User already exists");
     }
 
     // Hash password and create user
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await userCollection.insertOne({
-      ...payload,
+      name,
+      email,
       password: hashedPassword,
-      confirmPassword: undefined // Remove confirmPassword from stored document
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      role: 'USER'
     });
+
+    if(!result.acknowledged){
+      throw new Error('Faild to create user')
+    }
 
     return {
       success: true,
-      acknowledged: result.acknowledged,
       insertedId: result.insertedId.toString()
     };
 
@@ -41,41 +45,9 @@ export const registerUser = async (payload: RegisterPayload): Promise<Registrati
     console.error("Registration error:", error);
     return { 
       success: false, 
-      error: "Registration failed. Please try again." 
+      error: error instanceof Error ? error.message : "Registration failed" 
     };
   }
 };
 
 
-
-
-
-
-
-
-
-
-
-
-// export const registerUser = async (payload) => {
-//     const userCollection = await dbConnect(collectionNames.USERS);
-
-//     // validating
-//     const {email, password, confirmPassword} = payload;
-//     if(!email || !password || !confirmPassword) return { success: false};
-
-//     if(password !== confirmPassword) return { success: false};
-
-//     const user = await userCollection.findOne({ email: payload.email});
-
-//     if(!user) {
-//         const hashedPassword = await bcrypt.hash(password, 10);
-//         payload.password = hashedPassword;
-//         payload.confirmPassword = hashedPassword;
-//         const result = await userCollection.insertOne(payload);
-//         const {acknowledged, insertedId } = result;
-//         return {acknowledged, insertedId};
-//     }
-
-//     return { success: false};
-// }

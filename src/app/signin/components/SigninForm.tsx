@@ -33,26 +33,6 @@ export default function SigninForm () {
     setIsLoading(true)
     setError('')
 
-    // try {
-    //   const result = await signIn('credentials', {
-    //     redirect: false,
-    //     email: data.email,
-    //     password: data.password
-    //   })
-
-    //   if (result?.error) {
-    //     throw new Error(result.error)
-    //   }
-
-    //   if (result?.ok) {
-    //     router.push('/')
-    //   }
-    
-    // } catch (err) {
-    //   setError(err.message || 'Invalid credentials. Please try again.')
-    // } finally {
-    //   setIsLoading(false)
-    // }
      try {
       const result = await signIn('credentials', {
         redirect: false,
@@ -64,9 +44,6 @@ export default function SigninForm () {
         throw new Error(result.error)
       }
 
-      if (result?.ok) {
-        router.push('/')
-      }
     } catch (err) {
       // Type-safe error handling
       if (err instanceof Error) {
@@ -78,6 +55,7 @@ export default function SigninForm () {
       }
     } finally {
       setIsLoading(false)
+      router.push('/')
     }
   }
   

@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { registerUser } from '@/app/actions/auth/registerUser'
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
+import { motion } from 'framer-motion'
 
 const registerSchema = z
   .object({
@@ -18,15 +19,11 @@ const registerSchema = z
       .min(8, 'Password must be at least 8 characters')
       .regex(/[A-Z]/, 'Must contain at least one uppercase letter')
       .regex(/[0-9]/, 'Must contain at least one number'),
-    confirmPassword: z.string()
-  })
-  .refine(data => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ['confirmPassword']
+ 
   })
 
 export default function RegisterForm () {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
   const {
@@ -38,35 +35,35 @@ export default function RegisterForm () {
   })
 
   const onSubmit = async (data: z.infer<typeof registerSchema>) => {
-    setIsSubmitting(true)
+    setIsLoading(true)
     setError('')
 
     try {
-      await registerUser(data)
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message)
-      } else if (typeof err === 'string') {
-        setError(err)
-      } else {
-        setError('Registration failed. Please try again.')
+      const result = registerUser(data)
+
+      if (!(await result).success) {
+        throw new Error((await result).error || 'Registration failed')
       }
-    } finally {
-      const result = await signIn('credentials', {
+
+      const signInResult = await signIn('credentials', {
         redirect: false,
         email: data.email,
         password: data.password
       })
 
-      if (result?.error) {
-        throw new Error(result.error)
+      if (signInResult?.error) {
+        throw new Error(signInResult.error)
       }
 
-      if (result?.ok) {
-        router.push('/')
-      }
-      setIsSubmitting(false)
       router.push('/')
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Registration faild. Please try again.'
+      )
+    } finally {
+      setIsLoading(false)
     }
   }
   return (
@@ -143,18 +140,25 @@ export default function RegisterForm () {
         )}
       </div>
 
-      <button
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
         type='submit'
-        disabled={isSubmitting}
-        className={`w-full flex items-center justify-center px-6 py-3 rounded-lg font-medium text-white ${
-          isSubmitting
+        disabled={isLoading}
+        className={`w-full flex items-center justify-center px-6 py-3 rounded-xl font-medium text-white transition-all ${
+          isLoading
             ? 'bg-blue-400 cursor-not-allowed'
             : 'bg-[var(--primary)] hover:to-indigo-700 shadow-md'
         }`}
       >
-        {isSubmitting ? 'Creating Account...' : 'Register'}
-        {!isSubmitting && <FiArrowRight className='ml-2' />}
-      </button>
+        {isLoading ? (
+          'Signing In...'
+        ) : (
+          <>
+            Sign In <FiArrowRight className='ml-2' />
+          </>
+        )}
+      </motion.button>
 
       <div className='text-gray-600 text-sm text-center'>
         Already have an account?{' '}

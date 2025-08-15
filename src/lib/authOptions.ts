@@ -25,11 +25,12 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
+        name: {label:"Name", type: "name"},
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(
-        credentials: Record<"email" | "password", string> | undefined,
+        credentials: Record<"name" | "email" | "password", string> | undefined,
       ): Promise<{ id: string; email: string } | null> {
         if (!credentials?.email || !credentials?.password) {
           return null;
@@ -106,6 +107,9 @@ export const authOptions: NextAuthOptions = {
 
       return false
     },
+  },
+  session: {
+    strategy: "jwt",
   }
 };
 
