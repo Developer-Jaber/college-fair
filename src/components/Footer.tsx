@@ -3,8 +3,15 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import collegeLogo from "../../public/logo/college-fair-logo.png"
+import { useEffect, useState } from "react";
 
 const Footer = () => {
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, []);
+
   const socialLinks = [
     { icon: <FaFacebook />, name: "Facebook", url: "#" },
     { icon: <FaTwitter />, name: "Twitter", url: "#" },
@@ -12,6 +19,8 @@ const Footer = () => {
     { icon: <FaLinkedin />, name: "LinkedIn", url: "#" },
     { icon: <FaYoutube />, name: "YouTube", url: "#" }
   ];
+
+
 
   const footerLinks = [
     {
@@ -43,11 +52,33 @@ const Footer = () => {
     }
   ];
 
+    // Predefined bubble positions and sizes
+  const bubbleConfigs = [
+    { size: "w-6 h-6", top: "25%", left: "20%" },
+    { size: "w-8 h-8", top: "30%", left: "50%" },
+    { size: "w-4 h-4", top: "15%", left: "70%" },
+    { size: "w-10 h-10", top: "40%", left: "10%" },
+    { size: "w-5 h-5", top: "60%", left: "80%" },
+    { size: "w-7 h-7", top: "75%", left: "30%" },
+    { size: "w-9 h-9", top: "50%", left: "90%" },
+    { size: "w-6 h-6", top: "20%", left: "40%" },
+    { size: "w-8 h-8", top: "85%", left: "60%" },
+    { size: "w-5 h-5", top: "65%", left: "25%" },
+    { size: "w-7 h-7", top: "45%", left: "75%" },
+    { size: "w-4 h-4", top: "10%", left: "55%" },
+    { size: "w-9 h-9", top: "80%", left: "15%" },
+    { size: "w-6 h-6", top: "35%", left: "65%" },
+    { size: "w-8 h-8", top: "55%", left: "35%" }
+  ];
+
+
+
   return (
     <footer className="relative bg-gradient-to-b from-[#f0fce6] to-[#4325ba]/10 pt-20 pb-10 overflow-hidden">
       {/* Floating bubbles background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(15)].map((_, i) => (
+      {isMounted && (
+        <div className="absolute inset-0 overflow-hidden">
+        {bubbleConfigs.map((config, i) => (
           <motion.div
             key={i}
             animate={{
@@ -55,20 +86,19 @@ const Footer = () => {
               x: [0, i % 2 === 0 ? -10 : 10, 0]
             }}
             transition={{
-              duration: 10 + Math.random() * 20,
+              duration: 10 + (i * 1.5),
               repeat: Infinity,
               ease: "easeInOut"
             }}
-            className="absolute bg-white/10 rounded-full"
+            className={`absolute bg-white/10 rounded-full ${config.size}`}
             style={{
-              width: `${10 + Math.random() * 30}px`,
-              height: `${10 + Math.random() * 30}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%` 
+              top: config.top,
+              left: config.left 
             }}
           />
         ))}
       </div>
+      )}
 
       <div className="z-10 relative mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Main footer content */}
