@@ -59,6 +59,25 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/signin",
   },
+  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60 //30 days
+  },
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET
+  },
+  // cookies: {
+  //   sessionToken: {
+  //     name: `__Secure-next-auth.session-token`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: "lax",
+  //       path: "/",
+  //       secure: process.env.NODE_ENV === "production",
+  //     }
+  //   }
+  // },
   callbacks: {
     async signIn({ user, account, profile }) {
       // Handle credentials login
@@ -108,8 +127,6 @@ export const authOptions: NextAuthOptions = {
       return false
     },
   },
-  session: {
-    strategy: "jwt",
-  }
+  
 };
 

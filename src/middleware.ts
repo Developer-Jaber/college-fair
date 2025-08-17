@@ -4,8 +4,18 @@ import { NextRequest, NextResponse } from "next/server";
 
 
 export async function middleware(request: NextRequest) {
-    const token = await getToken({req: request})
-    const {pathname} = request.nextUrl
+    const pathname = request.nextUrl.pathname;
+
+
+    if(pathname.startsWith('/_next/') || pathname.startsWith('/favicon.ico')) {
+        return NextResponse.next();
+    }
+
+    const token = await getToken({
+        req: request,
+        secret: process.env.NEXTAUTH_SECRET,
+        secureCookie: process.env.NODE_ENV === 'production'
+    })
 
 
     // list of protects route 
