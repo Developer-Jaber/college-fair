@@ -87,3 +87,13 @@ export interface StepProps {
   title: string;
   subtitle:string,
 }
+
+ export interface Session {
+    user: {
+      id: string
+      name: string
+      email: string
+      image?: string
+      avatar?: string
+    }
+  }

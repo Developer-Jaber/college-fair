@@ -5,11 +5,11 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import Image from 'next/image'
 import logo from './../../public/logo/college-fair-logo.png'
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 
 interface NavLink {
-  name: string,
-  href: string,
+  name: string
+  href: string
   requiresAuth?: boolean
 }
 
@@ -19,11 +19,9 @@ const Navbar = () => {
   const { status } = useSession()
   const [isMounted, setIsMounted] = useState(false)
 
-
   useEffect(() => {
     setIsMounted(true)
   }, [])
-
 
   // Close mobile menu when clicking a link
   const closeMenu = () => setIsOpen(false)
@@ -44,14 +42,15 @@ const Navbar = () => {
     { name: 'Home', href: '/' },
     { name: 'College', href: '/colleges' },
     { name: 'Admission', href: '/admission' },
-    { name: 'My College', href: '/my-college', requiresAuth: true},
-    { name: 'Dashboard', href: '/dashboard', requiresAuth: true},
+    { name: 'My College', href: '/my-college', requiresAuth: true },
+    { name: 'Dashboard', href: '/dashboard', requiresAuth: true },
     { name: 'Contact', href: '/contact' }
   ]
 
   // filter links based on auth status
-  const filteredLinks = navLinks.filter(link => 
-    !link.requiresAuth || (link.requiresAuth && status === "authenticated")
+  const filteredLinks = navLinks.filter(
+    link =>
+      !link.requiresAuth || (link.requiresAuth && status === 'authenticated')
   )
 
   return (
@@ -98,22 +97,12 @@ const Navbar = () => {
             ))}
 
             {isMounted && status === 'authenticated' ? (
-              
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => signOut()}
-                  className='bg-[var(--primary)] px-4 py-2 rounded-md font-medium text-white'
-                >
-                  Sign Out
-                </motion.button>
-              
+              <></>
             ) : (
               <Link href={'/register'} passHref>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  // onClick={() => signIn()}
                   className='bg-[var(--primary)] px-4 py-2 rounded-md font-medium text-white'
                 >
                   Sign Up
@@ -160,15 +149,7 @@ const Navbar = () => {
                 ))}
 
                 {isMounted && status === 'authenticated' ? (
-                  <button
-                    onClick={() => {
-                      closeMenu()
-                      signOut()
-                    }}
-                    className='bg-primary px-4 py-2 rounded-md w-full font-medium text-white'
-                  >
-                    Sign Out
-                  </button>
+                  <></>
                 ) : (
                   <Link
                     href='/register'
