@@ -3,6 +3,8 @@ import * as React from 'react'
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion'
 import { ChevronDown } from 'lucide-react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
+import PrimaryButton from './PrimaryButton'
 
 const faqs = [
   {
@@ -38,11 +40,11 @@ export function FAQ() {
           viewport={{ once: true }}
           className="mx-auto max-w-3xl text-center"
         >
-          <h2 className="font-bold text-[ver(--text)] text-3xl sm:text-4xl tracking-tight">
+          <h2 className="font-bold text-[ver(--text)] sm:text-4xl tracking-tight">
             Frequently Asked Questions
           </h2>
           <p className="mt-4 text-gray-600">
-            Can&apos;t find what you&apos;re looking for? <a href="/contact" className="text-blue-600 hover:underline">Contact our support team</a>
+            Can&apos;t find what you&apos;re looking for? <a href="/contact" className="text-[var(--primary)] hover:underline">Contact our support team</a>
           </p>
         </motion.div>
 
@@ -51,7 +53,7 @@ export function FAQ() {
           whileInView={{ opacity: 1 }}
           transition={{ staggerChildren: 0.1 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="mx-auto mt-16 max-w-2xl text-2xl"
+          className="mx-auto mt-16 max-w-4xl"
         >
           <Accordion type="single" collapsible className="space-y-4 w-full">
             {faqs.map((faq, index) => (
@@ -66,10 +68,10 @@ export function FAQ() {
                   className="bg-white shadow-sm hover:shadow-md p-6 border border-gray-200 rounded-xl transition-all"
                 >
                   <AccordionTrigger className="flex justify-between items-center w-full text-left [&[data-state=open]>svg:rotate-180">
-                    <h3 className="font-semibold text-gray-900">{faq.question}</h3>
+                    <h3 className="font-semibold text-gray-900 text-xl">{faq.question}</h3>
                     <ChevronDown className="w-5 h-5 text-gray-500 transition-transform duration-200 shrink-0" />
                   </AccordionTrigger>
-                  <AccordionContent className="pt-4 text-gray-600">
+                  <AccordionContent className="pt-4 text-gray-600 text-lg">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -87,12 +89,9 @@ export function FAQ() {
         >
           <div className="inline-flex bg-gray-100 p-1 rounded-lg">
             <span className="px-4 py-2 font-medium text-gray-700 text-sm">Still have questions?</span>
-            <a
-              href="/contact"
-              className="bg-[var(--accent)] shadow-lg px-6 py-3 rounded-lg font-medium text-white"
-            >
-              Contact Support
-            </a>
+            <Link href='/contact'>
+              <PrimaryButton className='px-6 py-3 font-medium' variant='secondary'>Contact Support</PrimaryButton>
+            </Link>
           </div>
         </motion.div>
       </div>

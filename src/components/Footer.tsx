@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import collegeLogo from "../../public/logo/college-fair-logo.png"
 import { useEffect, useState } from "react";
+import PrimaryButton from "./PrimaryButton";
 
 const Footer = () => {
   const [isMounted, setIsMounted] = useState(false)
@@ -176,14 +177,7 @@ const Footer = () => {
                 className="px-4 py-3 border border-gray-300 focus:border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-primary w-full"
                 required
               />
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                type="submit"
-                className="bg-[var(--accent)] py-3 rounded-lg w-full font-medium text-white"
-              >
-                Subscribe
-              </motion.button>
+              <PrimaryButton className="px-4 py-3 w-full font-medium">Subscribe</PrimaryButton>
             </form>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiDownload, FiExternalLink, FiFilter, FiBarChart2, FiCalendar, FiUser } from 'react-icons/fi';
 import SectionTitle from './SectionTitle';
+import PrimaryButton from './PrimaryButton';
 
 const ResearchPapers = () => {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -208,13 +209,7 @@ const ResearchPapers = () => {
           whileInView={{ opacity: 1 }}
           className="mt-16 text-center"
         >
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            className="bg-[var(--accent)] shadow-lg px-6 py-3 rounded-lg font-medium text-white"
-          >
-            Browse All Research Publications →
-          </motion.button>
+          <PrimaryButton variant='secondary' className='px-6 py-3 font-medium' >Browse All Research Publications →</PrimaryButton>
         </motion.div>
       </div>
     </section>

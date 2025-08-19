@@ -5,6 +5,7 @@ import Stanford from "./../../public/collegeimg/stanford.png";
 import Harverd from "./../../public/collegeimg/harvard.png";
 import MIT from "./../../public/collegeimg/mit.png";
 import SectionTitle from "./SectionTitle";
+import PrimaryButton from "./PrimaryButton";
 
 const CollegeCards = () => {
   const colleges = [
@@ -135,13 +136,11 @@ const CollegeCards = () => {
                     </div>
                   </div>
 
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="bg-[var(--primary)] mt-4 py-2 rounded-lg w-full font-medium text-white text-sm"
+                  <PrimaryButton 
+                  className="mt-4 py-2 w-full font-medium text-md"
                   >
                     View Facilities
-                  </motion.button>
+                  </PrimaryButton>
                 </motion.div>
               </motion.div>
             </motion.div>

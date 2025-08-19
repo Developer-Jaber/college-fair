@@ -48,7 +48,7 @@ const Steps = () => {
         {/* Steps Container */}
         <div className="relative">
           {/* Progress line */}
-          <div className="hidden lg:block top-1/2 right-0 left-0 z-0 absolute bg-gradient-to-r from-blue-500 via-amber-400 to-emerald-500 h-1 -translate-y-1/2 transform"></div>
+          <div className="hidden lg:block top-1/2 right-0 left-0 z-0 absolute bg-[var(--accent)] to-emerald-500 h-1 -translate-y-1/2 transform"></div>
 
           <div className="z-10 relative gap-8 grid grid-cols-1 lg:grid-cols-3">
             {steps.map((step, index) => (
@@ -61,8 +61,8 @@ const Steps = () => {
                 className="flex flex-col items-center text-center"
               >
                 {/* Step Number */}
-                <div className="relative flex justify-center items-center bg-gradient-to-br from-blue-600 to-amber-500 shadow-lg mb-6 rounded-full w-16 h-16 font-bold text-white text-2xl">
-                  <div className="absolute -inset-2 bg-blue-500/20 rounded-full animate-ping"></div>
+                <div className="relative flex justify-center items-center bg-[var(--accent)] shadow-lg mb-6 rounded-full w-16 h-16 font-bold text-white text-2xl">
+                  <div className="absolute -inset-2 bg-green-500/20 rounded-full animate-ping"></div>
                   {step.icon}
                 </div>
 

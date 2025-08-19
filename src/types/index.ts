@@ -97,3 +97,4 @@ export interface StepProps {
       avatar?: string
     }
   }
+

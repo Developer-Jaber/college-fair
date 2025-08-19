@@ -10,6 +10,7 @@ import sophia from './../../public/avatar/Sophia Rodriguez.png';
 import ethan from './../../public/avatar/Ethan Park.png';
 import olivia from './../../public/avatar/Olivia Smith.png';
 import SectionTitle from './SectionTitle';
+import PrimaryButton from './PrimaryButton';
 
 
 const CollegeReviews = () => {
@@ -253,13 +254,7 @@ const CollegeReviews = () => {
               whileInView={{ opacity: 1 }}
               className="mt-12 text-center"
             >
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-[var(--accent)] shadow-lg px-6 py-3 rounded-lg font-medium text-white"
-              >
-                Share Your Experience
-              </motion.button>
+              <PrimaryButton className='px-6 py-3 font-medium' variant='secondary'>Share Your Experience</PrimaryButton>
             </motion.div>
           </div>
         </div>

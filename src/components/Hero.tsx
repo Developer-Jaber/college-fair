@@ -1,10 +1,36 @@
 "use client";
-import { motion } from "framer-motion";
+import { animate, motion, useMotionValue, useTransform, Variants } from "framer-motion";
 import Link from "next/link";
+import PrimaryButton from "./PrimaryButton";
+import { useInView } from 'react-intersection-observer';
+import { useEffect } from "react";
+
+const MotionCounter = ({ value, duration = 2 }: { value: number | string; duration?: number }) => {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, Math.round)
+  const formatted = useTransform(rounded, (val) => {
+    if(typeof value === 'string') return value;
+    if(val >= 10000) return `${(val/1000).toFixed(0)}K+`;
+    if(val >= 1000) return `${(val/1000).toFixed(1)}K+`;
+    return `${val}+`
+  });
+
+  useEffect(()=>{
+    if (inView && typeof value === "number") {
+      const animation = animate(count, value, {
+        duration: duration,
+        ease: "easeOut"
+      });
+      return animation.stop;
+    }
+  },[inView, value, count, duration]);
+  return <motion.span ref={ref}>{formatted}</motion.span>
+}
 
 const Hero = () => {
   // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -14,13 +40,35 @@ const Hero = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { type: "spring" as const, damping: 10 },
+      transition: { type: "spring" as const, damping: 10 , ease: [0.25, 0.46, 0.45, 0.94]},
     },
+  };
+
+  const statsContainerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  }
+
+  const statItemVariants: Variants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    }
   };
 
   return (
@@ -59,7 +107,7 @@ const Hero = () => {
       />
 
       {/* Main Content */}
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 max-w-7xl">
+      <div className="mx-auto mt-10 px-4 sm:px-6 lg:px-8 py-24 md:py-32 max-w-7xl">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -92,39 +140,47 @@ const Hero = () => {
             className="flex sm:flex-row flex-col justify-center gap-4"
           >
             <Link href="/book-now">
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-[var(--primary)] shadow-lg hover:shadow-primary/30 px-8 py-3 rounded-lg font-semibold text-white transition-all"
+              <PrimaryButton 
+              className="px-8 py-3" 
               >
                 Book Now
-              </motion.button>
+              </PrimaryButton>
             </Link>
             <Link href="/learn-more">
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-[var(--accent)] hover:bg-gray-50 px-8 py-3 border-2 border-primary rounded-lg font-semibold text-[white] hover:text-[var(--text)] transition-all"
+              <PrimaryButton
+              className="px-8 py-3"
+              variant="secondary"
               >
                 How It Works
-              </motion.button>
+              </PrimaryButton>
             </Link>
           </motion.div>
 
           {/* Stats (optional) */}
           <motion.div
-            variants={itemVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={statsContainerVariants}
             className="flex flex-wrap justify-center gap-8 mt-16"
           >
             {[
-              { value: "500+", label: "Facilities" },
-              { value: "10K+", label: "Monthly Bookings" },
+              { value: 500, label: "Facilities" },
+              { value: 10000, label: "Monthly Bookings" },
               { value: "24/7", label: "Support" },
             ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <p className="font-bold text-primary text-3xl">{stat.value}</p>
-                <p className="text-gray-500">{stat.label}</p>
-              </div>
+              <motion.div 
+              key={index}
+              variants={statItemVariants}
+              className="text-center"
+              >
+                <p className="font-bold text-primary text-3xl md:text-4xl">
+                  <MotionCounter value={stat.value} duration={1.5} />
+                </p>
+                <p className="mt-2 text-gray-500 text-sm md:text-base">
+                  {stat.label}
+                </p>
+              </motion.div>
             ))}
           </motion.div>
         </motion.div>
