@@ -6,10 +6,16 @@ export interface User {
   email: string;
   role: UserRole;
   department?: string;
-  permissions: Permission[];
 }
 
-export interface Permission {
-    resource: string;
-    action: ('create' | 'read' | 'update' | 'delete')[];
+declare module "next-auth" {
+  interface User {
+    role: UserRole;
+    department?:string;
+  }
+
+  interface Session {
+    user: User;
+  }
 }
+

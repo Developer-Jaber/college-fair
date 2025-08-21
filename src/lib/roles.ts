@@ -1,48 +1,46 @@
-export const ROLE_PERMISSION: Record<UserRole, Permission[]> = {
-    admin: [
-    { resource: 'facilities', actions: ['create', 'read', 'update', 'delete'] },
-    { resource: 'bookings', actions: ['create', 'read', 'update', 'delete'] },
-    { resource: 'users', actions: ['create', 'read', 'update', 'delete'] },
-    { resource: 'reports', actions: ['read'] },
-  ],
-  staff: [
-    { resource: 'facilities', actions: ['read', 'update'] },
-    { resource: 'bookings', actions: ['create', 'read', 'update'] },
-    { resource: 'users', actions: ['read'] },
-  ],
-  faculty: [
-    { resource: 'facilities', actions: ['read'] },
-    { resource: 'bookings', actions: ['create', 'read', 'update'] },
-  ],
-  student: [
-    { resource: 'facilities', actions: ['read'] },
-    { resource: 'bookings', actions: ['create', 'read'] },
-  ],
+// lib/roles.ts
+import { UserRole } from '@/types/auth';
+
+export const ROLE_PERMISSIONS = {
+  admin: {
+    canManageUsers: true,
+    canManageFacilities: true,
+    canViewAllBookings: true,
+    canApproveBookings: true,
+    canViewReports: true,
+  },
+  staff: {
+    canManageUsers: false,
+    canManageFacilities: true,
+    canViewAllBookings: true,
+    canApproveBookings: true,
+    canViewReports: false,
+  },
+  faculty: {
+    canManageUsers: false,
+    canManageFacilities: false,
+    canViewAllBookings: false,
+    canApproveBookings: false,
+    canViewReports: false,
+  },
+  student: {
+    canManageUsers: false,
+    canManageFacilities: false,
+    canViewAllBookings: false,
+    canApproveBookings: false,
+    canViewReports: false,
+  },
 };
 
-export const getDashboardConfig = (role: UserRole) => {
-    const baseConfig = {
-    admin: {
-      title: 'Admin Dashboard',
-      description: 'Manage all college facilities and bookings',
-      sections: ['overview', 'facilities', 'bookings', 'users', 'reports'],
-    },
-    staff: {
-      title: 'Staff Dashboard',
-      description: 'Manage facilities and bookings',
-      sections: ['overview', 'facilities', 'bookings'],
-    },
-    faculty: {
-      title: 'Faculty Dashboard',
-      description: 'View and book college facilities',
-      sections: ['overview', 'bookings', 'my-bookings'],
-    },
-    student: {
-      title: 'Student Dashboard',
-      description: 'Book available college facilities',
-      sections: ['overview', 'bookings', 'my-bookings'],
-    },
-  };
+export const getSidebarItems = (role: UserRole) => {
+  const allItems = [
+    { name: 'Dashboard', href: '/dashboard', icon: 'LayoutDashboard', roles: ['admin', 'staff', 'faculty', 'student'] },
+    { name: 'Facilities', href: '/dashboard/facilities', icon: 'Building2', roles: ['admin', 'staff', 'faculty', 'student'] },
+    { name: 'My Bookings', href: '/dashboard/my-bookings', icon: 'Calendar', roles: ['faculty', 'student'] },
+    { name: 'All Bookings', href: '/dashboard/bookings', icon: 'CalendarCheck', roles: ['admin', 'staff'] },
+    { name: 'Users', href: '/dashboard/users', icon: 'Users', roles: ['admin'] },
+    { name: 'Reports', href: '/dashboard/reports', icon: 'BarChart3', roles: ['admin'] },
+  ];
 
-  return baseConfig[role];
+  return allItems.filter(item => item.roles.includes(role));
 };
