@@ -1,7 +1,9 @@
-'use client'
+
 import '../globals.css'
 import NextAuthSessionProvider from '@/Providers/NextAuthSessionProvider'
 import { Providers } from '../providers'
+import { DashboardLayout } from './_components/dashboard-layout'
+import { SidebarProvider } from '@/components/ui/sidebar'
 
 
 export default function RootLayout ({
@@ -11,7 +13,11 @@ export default function RootLayout ({
 }>) {
   return (
     <NextAuthSessionProvider>
-      <Providers>{children}</Providers>
+      <Providers>
+       <SidebarProvider>
+         <DashboardLayout>{children}</DashboardLayout>
+       </SidebarProvider>
+      </Providers>
     </NextAuthSessionProvider>
   )
 }

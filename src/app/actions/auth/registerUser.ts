@@ -29,7 +29,7 @@ export const registerUser = async (payload: RegisterPayload): Promise<Registrati
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
-      role: 'USER'
+      role: 'student'
     });
 
     if(!result.acknowledged){

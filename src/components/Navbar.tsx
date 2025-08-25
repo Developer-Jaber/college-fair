@@ -11,12 +11,13 @@ interface NavLink {
   name: string
   href: string
   requiresAuth?: boolean
+  role?: string[]
 }
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const { status } = useSession()
+  const { data:session ,status } = useSession()
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
@@ -37,22 +38,55 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Nav links
-  const navLinks: NavLink[] = [
+  const getDashboardHref = () => {
+    console.log(session);
+    if (!session?.user?.role) return '/signin' // Default fallback
+    
+    switch(session.user.role.toLowerCase()) {
+      case 'admin':
+        return '/admin'
+      case 'student':
+        return '/student'
+      case 'faculty':
+        return '/faculty'
+      default:
+        return '/dashboard'
+    }
+  }
+  
+
+  // Nav links - defined as a function to get fresh dashboard href on each render
+  const getNavLinks = (): NavLink[] => [
     { name: 'Home', href: '/' },
     { name: 'College', href: '/colleges' },
     { name: 'Admission', href: '/admission' },
     { name: 'My College', href: '/my-college', requiresAuth: true },
-    { name: 'Dashboard', href: '/dashboard', requiresAuth: true },
+    { 
+      name: 'Dashboard', 
+      href: getDashboardHref(), 
+      requiresAuth: true,
+      // Optional: restrict to specific roles
+      role: ['admin', 'student', 'faculty'] 
+    },
     { name: 'Contact', href: '/contact' }
   ]
 
-  // filter links based on auth status
-  const filteredLinks = navLinks.filter(
-    link =>
-      !link.requiresAuth || (link.requiresAuth && status === 'authenticated')
-  )
-
+  // Filter links based on auth status and optionally roles
+  const filteredLinks = getNavLinks().filter(link => {
+    // If link doesn't require auth, show it to everyone
+    if (!link.requiresAuth) return true
+    
+    // If link requires auth but user isn't authenticated, hide it
+    if (status !== 'authenticated') return false
+    
+    // If link has specific role requirements, check them
+    if (link.role && session?.user?.role) {
+      return link.role.includes(session.user.role.toLowerCase())
+    }
+    
+    // If no role requirements, show to all authenticated users
+    return true
+  })
   return (
     <header
       className={`fixed w-full z-50  transition-all duration-300 ${

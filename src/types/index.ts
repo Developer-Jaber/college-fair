@@ -1,3 +1,4 @@
+import { UserRole } from "./auth";
 
 export type Product = {
   _id: string;
@@ -16,11 +17,13 @@ export interface User {
   _id: string;
   email: string;
   password: string;
-  name: string
-  image?: string
-  provider?: string
-  createdAt?: Date
-  lastLogin?: Date
+  name: string;
+  image?: string;
+  provider?: string;
+  createdAt?: Date;
+  lastLogin?: Date;
+  role?:string;
+  department?: string;
 }
 
 export interface CustomProfile {
@@ -31,6 +34,13 @@ export interface CustomProfile {
   family_name?: string;
 }
 
+export interface CustomUser {
+  _id: string;
+  email: string;
+  name?: string;
+  role: UserRole;
+  department?: string;
+}
 
 export interface RegisterPayload {
   name: string,
@@ -95,6 +105,7 @@ export interface StepProps {
       email: string
       image?: string
       avatar?: string
+      role?: string
     }
   }
 

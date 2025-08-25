@@ -6,6 +6,7 @@ import { NextAuthOptions, Profile } from "next-auth";
 import { User as CustomUser } from "@/types";
 import GoogleProvider from "next-auth/providers/google";
 import dbConnect, { collectionNames } from "./dbConnect";
+import { UserRole } from "@/types/auth";
 
 // validate the environment variavles
 function getGoogleCredentials() {
@@ -25,13 +26,13 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        name: {label:"Name", type: "name"},
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
+        name: {label:"Name", type: "name", required: false},
+        email: { label: "Email", type: "email", required: true },
+        password: { label: "Password", type: "password", required: true },
       },
       async authorize(
         credentials: Record<"name" | "email" | "password", string> | undefined,
-      ): Promise<{ id: string; email: string } | null> {
+      ){
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
@@ -50,6 +51,9 @@ export const authOptions: NextAuthOptions = {
         return {
           id: user._id,
           email: user.email,
+          name: user.name || '', 
+          role: (user.role as UserRole) || 'staff', 
+          department: user.department || undefined, 
         };
       },
     }),
@@ -58,6 +62,7 @@ export const authOptions: NextAuthOptions = {
 
   pages: {
     signIn: "/signin",
+    error: '/signin'
   },
   secret: process.env.NEXTAUTH_SECRET,
   session: {
@@ -67,17 +72,6 @@ export const authOptions: NextAuthOptions = {
   jwt: {
     secret: process.env.NEXTAUTH_SECRET
   },
-  // cookies: {
-  //   sessionToken: {
-  //     name: `__Secure-next-auth.session-token`,
-  //     options: {
-  //       httpOnly: true,
-  //       sameSite: "lax",
-  //       path: "/",
-  //       secure: process.env.NODE_ENV === "production",
-  //     }
-  //   }
-  // },
   callbacks: {
     async signIn({ user, account, profile }) {
       // Handle credentials login
@@ -103,7 +97,8 @@ export const authOptions: NextAuthOptions = {
             email: user.email,
             image: user.image || socialProfile?.picture,
             provider: account.provider,
-            lastLogin: new Date()
+            lastLogin: new Date(),
+            role: 'student' as UserRole,
           }
 
           await dbConnect(collectionNames.USERS).updateOne(
@@ -126,6 +121,28 @@ export const authOptions: NextAuthOptions = {
 
       return false
     },
+    async jwt({token, user,account, profile}) {
+      if(user) {
+        token.role = (user).role || "admin";
+        token.department = (user).department;
+        token.id = user.id;
+      }
+
+      if (account?.provider === 'google' && profile) {
+        token.email_verified = (profile).email_verified;
+      }
+
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.role = token.role as UserRole;
+        session.user.department = token.department as string;
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
+
   },
   
 };

@@ -2,20 +2,15 @@
 
 import * as React from 'react'
 import {
+  Icon,
   IconCamera,
-  IconChartBar,
-  IconDashboard,
   IconDatabase,
-  IconFileAi,
   IconFileDescription,
   IconFileWord,
-  IconFolder,
   IconHelp,
-  IconListDetails,
   IconReport,
   IconSearch,
   IconSettings,
-  IconUsers
 } from '@tabler/icons-react'
 import logo from './../../public/logo/college-fair-logo.png'
 import { NavDocuments } from '@/components/nav-documents'
@@ -31,125 +26,112 @@ import {
 } from '@/components/ui/sidebar'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useSession } from 'next-auth/react'
+import { getSidebarItems } from '@/lib/roles'
+import { UserRole } from '@/types/auth'
 
-const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg'
-  },
-  navMain: [
-    {
-      title: 'Dashboard',
-      url: '/dashboard',
-      icon: IconDashboard
-    },
-    {
-      title: 'Lifecycle',
-      url: '/dashboard/lifecycle',
-      icon: IconListDetails
-    },
-    {
-      title: 'Analytics',
-      url: '/analytics',
-      icon: IconChartBar
-    },
-    {
-      title: 'Projects',
-      url: '#',
-      icon: IconFolder
-    },
-    {
-      title: 'Team',
-      url: '#',
-      icon: IconUsers
-    }
-  ],
-  navClouds: [
-    {
-      title: 'Capture',
-      icon: IconCamera,
-      isActive: true,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#'
-        },
-        {
-          title: 'Archived',
-          url: '#'
-        }
-      ]
-    },
-    {
-      title: 'Proposal',
-      icon: IconFileDescription,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#'
-        },
-        {
-          title: 'Archived',
-          url: '#'
-        }
-      ]
-    },
-    {
-      title: 'Prompts',
-      icon: IconFileAi,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#'
-        },
-        {
-          title: 'Archived',
-          url: '#'
-        }
-      ]
-    }
-  ],
-  navSecondary: [
-    {
-      title: 'Settings',
-      url: '#',
-      icon: IconSettings
-    },
-    {
-      title: 'Get Help',
-      url: '#',
-      icon: IconHelp
-    },
-    {
-      title: 'Search',
-      url: '#',
-      icon: IconSearch
-    }
-  ],
-  documents: [
-    {
-      name: 'Data Library',
-      url: '#',
-      icon: IconDatabase
-    },
-    {
-      name: 'Reports',
-      url: '#',
-      icon: IconReport
-    },
-    {
-      name: 'Word Assistant',
-      url: '#',
-      icon: IconFileWord
-    }
-  ]
+
+
+
+interface NavItem {
+   title: string;
+   url: string;
+   icon:  Icon;
+   isActive?: boolean;
+   items?: { title: string; url: string }[];
+}
+
+interface SidebarData {
+  navMain: NavItem[];
+  navClouds: NavItem[];
+  navSecondary: NavItem[];
+  documents: { name: string; url: string; icon: Icon }[];
+}
+
+
+const getSidebarData = (role?: UserRole): SidebarData => {
+  const baseData: SidebarData = {
+
+    navMain: role ? getSidebarItems(role) : [],
+
+    navClouds: role === "admin" || role === 'staff'? [
+      {
+         title: 'Facilities Management',
+        icon: IconCamera,
+        isActive: true,
+        url: '/dashboard/facilities',
+        items: [
+          { title: 'All Facilities', url: '/dashboard/facilities' },
+          { title: 'Add New', url: '/dashboard/facilities/new' }
+        ]
+      },
+      {
+        title: 'Booking Management',
+        icon: IconFileDescription,
+        url: '/dashboard/bookings',
+        items: [
+          { title: 'Pending Approvals', url: '/dashboard/bookings/pending' },
+          { title: 'All Bookings', url: '/dashboard/bookings' }
+        ]
+      }
+    ] : [
+      {
+        title: 'My Bookings',
+        icon: IconFileDescription,
+        url: '/dashboard/my-bookings',
+        items: [
+          { title: 'Active', url: '/dashboard/my-bookings' },
+          { title: 'History', url: '/dashboard/my-bookings/history' }
+        ]
+      }
+    ],
+
+    navSecondary: [
+       {
+        title: 'Settings',
+        url: '/dashboard/settings',
+        icon: IconSettings
+      },
+      {
+        title: 'Get Help',
+        url: '/dashboard/help',
+        icon: IconHelp
+      },
+      {
+        title: 'Search',
+        url: '/dashboard/search',
+        icon: IconSearch
+      }
+    ],
+
+    // admin-only documents
+    documents: role === 'admin' ? [
+       {
+        name: 'User Management',
+        url: '/dashboard/users',
+        icon: IconDatabase
+      },
+      {
+        name: 'Reports',
+        url: '/dashboard/reports',
+        icon: IconReport
+      },
+      {
+        name: 'System Settings',
+        url: '/dashboard/system',
+        icon: IconFileWord
+      }
+    ] : []
+  }
+
+  return baseData
 }
 
 export function AppSidebar ({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const {data: session} = useSession();
+
+  const data = getSidebarData(session?.user?.role)
+  
   return (
     <Sidebar collapsible='offcanvas' {...props}>
       <SidebarHeader>
@@ -171,7 +153,7 @@ export function AppSidebar ({ ...props }: React.ComponentProps<typeof Sidebar>) 
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
+        {data.documents.length> 0 && <NavDocuments items={data.documents}></NavDocuments>}
         <NavSecondary items={data.navSecondary} className='mt-auto' />
       </SidebarContent>
       <SidebarFooter>

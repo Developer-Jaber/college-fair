@@ -11,7 +11,7 @@ interface RoleGuardProps {
   fallback?: ReactNode;
 }
 
-export function RoleGourd({ allowedRoles, children, fallback}:RoleGuardProps){
+export function RoleGuard({ allowedRoles, children, fallback}:RoleGuardProps){
   const { data:session } = useSession();
 
   if(!session?.user?.role || !allowedRoles.includes(session.user.role)){

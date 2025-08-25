@@ -1,18 +1,15 @@
 
-import { Separator } from "@/components/ui/separator"
-import { SidebarTrigger } from "@/components/ui/sidebar"
 import { ModeToggle } from "./ui/mode-togol"
 
-export function SiteHeader() {
+type SideHeaderProps = {
+  children: string;
+}
+
+export function SiteHeader({children}: SideHeaderProps) {
   return (
-    <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+    <header className="flex h-(--header-height) shrink-0 pb-5 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
       <div className="flex items-center gap-1 lg:gap-2 px-4 lg:px-6 w-full">
-        <SidebarTrigger className="-ml-1" />
-        <Separator
-          orientation="vertical"
-          className="mx-2 data-[orientation=vertical]:h-4"
-        />
-        <h1 className="font-medium text-base">Documents</h1>
+        <h1 className="font-medium text-base">{children}</h1>
         <div className="flex items-center gap-2 ml-auto">
           <ModeToggle></ModeToggle>
         </div>
