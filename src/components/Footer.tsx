@@ -4,7 +4,7 @@ import Image from "next/image";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import collegeLogo from "../../public/logo/college-fair-logo.png"
 import { useEffect, useState } from "react";
-import PrimaryButton from "./PrimaryButton";
+import PrimaryButton from "./customComponents/PrimaryButton";
 
 const Footer = () => {
   const [isMounted, setIsMounted] = useState(false)

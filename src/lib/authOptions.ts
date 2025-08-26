@@ -123,7 +123,7 @@ export const authOptions: NextAuthOptions = {
     },
     async jwt({token, user,account, profile}) {
       if(user) {
-        token.role = (user).role || "admin";
+        token.role = (user).role || "student";
         token.department = (user).department;
         token.id = user.id;
       }

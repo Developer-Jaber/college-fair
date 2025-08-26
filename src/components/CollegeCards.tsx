@@ -5,7 +5,7 @@ import Stanford from "./../../public/collegeimg/stanford.png";
 import Harverd from "./../../public/collegeimg/harvard.png";
 import MIT from "./../../public/collegeimg/mit.png";
 import SectionTitle from "./SectionTitle";
-import PrimaryButton from "./PrimaryButton";
+import PrimaryButton from "./customComponents/PrimaryButton";
 
 const CollegeCards = () => {
   const colleges = [

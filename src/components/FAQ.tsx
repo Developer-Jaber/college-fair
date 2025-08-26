@@ -4,7 +4,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/
 import { ChevronDown } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import PrimaryButton from './PrimaryButton'
+import PrimaryButton from './customComponents/PrimaryButton'
 
 const faqs = [
   {

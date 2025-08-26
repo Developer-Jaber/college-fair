@@ -23,15 +23,19 @@ import {
 } from '../../features/colleges/collegesSlice'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import SectionTitle from '@/components/SectionTitle'
+import PrimaryButton from '@/components/customComponents/PrimaryButton'
+
 
 export default function CollegeListing () {
   const [showFilters, setShowFilters] = useState(false)
   const dispatch = useDispatch<AppDispatch>()
-  const {status} = useSession()
+  const { status } = useSession()
   const router = useRouter()
 
-  const { colleges, searchQuery, sortBy, selectedCollege } =
-    useSelector((state: RootState) => state.colleges)
+  const { colleges, searchQuery, sortBy, selectedCollege } = useSelector(
+    (state: RootState) => state.colleges
+  )
 
   useEffect(() => {
     const fetchColleges = async () => {
@@ -52,34 +56,22 @@ export default function CollegeListing () {
     fetchColleges()
   }, [dispatch])
 
-  //   // Filter and sort colleges
   const filteredColleges = colleges
-    .filter(college =>
-      college.name.toLowerCase().includes(searchQuery.toLowerCase())
-    ) // <-- Close filter here
-    .sort((a, b) =>
+    .filter(colleges =>
+      colleges.name.toLocaleLowerCase().includes(searchQuery.toLowerCase())
+    )//<-- close filter here
+    .sort((a, b)=>
       sortBy === 'rating' ? b.rating - a.rating : b.research - a.research
     )
-
 
   return (
     <div className='bg-[var(--bg-color)] px-4 sm:px-6 lg:px-8 py-32 min-h-screen'>
       <div className='mx-auto max-w-7xl'>
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className='mb-12 text-center'
-        >
-          <h1 className='mb-4 font-bold text-[var(--text-color)] text-4xl md:text-5xl'>
-            <span className='bg-clip-text bg-gradient-to-r from-primary to-secondary'>
-              Explore Top Colleges
-            </span>
-          </h1>
-          <p className='mx-auto max-w-3xl text-gray-600 text-xl'>
-            Find your perfect academic match with detailed insights
-          </p>
-        </motion.div>
+        <SectionTitle
+          title='Explore Top Colleges'
+          subtitle='Find your perfect academic match with detailed insights'
+        ></SectionTitle>
 
         {/* Search & Filter Bar */}
         <motion.div
@@ -99,10 +91,10 @@ export default function CollegeListing () {
           </div>
 
           <div className='flex gap-2'>
-            <button
-              type='button'
+            <PrimaryButton
+              variant='secondary'
+              className='flex items-center gap-2 px-4 py-2'
               onClick={() => setShowFilters(!showFilters)}
-              className='flex items-center gap-2 bg-[var(--accent)] hover:bg-gray-200 px-4 py-2 rounded-lg text-amber-50'
             >
               <FiFilter />
               <span>Filters</span>
@@ -111,7 +103,7 @@ export default function CollegeListing () {
                   showFilters ? 'rotate-180' : ''
                 }`}
               />
-            </button>
+            </PrimaryButton>
           </div>
         </motion.div>
 
@@ -122,13 +114,13 @@ export default function CollegeListing () {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className='bg-white shadow-sm mb-8 p-4 rounded-xl overflow-hidden'
+              className='bg-white shadow-sm mb-8 p-2 rounded-xl overflow-hidden'
             >
               <div className='gap-4 grid grid-cols-1 md:grid-cols-3'>
                 <div>
                   <label
                     htmlFor='sortBy'
-                    className='block mb-1 font-medium text-gray-700 text-sm'
+                    className='block mb-1 font-medium text-gray-700'
                   >
                     Sort By
                   </label>
@@ -216,12 +208,12 @@ export default function CollegeListing () {
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={(e) => {
+                  onClick={e => {
                     e.stopPropagation()
-                    if(status === 'unauthenticated'){
-                      router.push('/register');
-                    }else{
-                      dispatch(setSelectedCollege(college));
+                    if (status === 'unauthenticated') {
+                      router.push('/register')
+                    } else {
+                      dispatch(setSelectedCollege(college))
                     }
                   }}
                   className='bg-[var(--primary)] py-2 rounded-lg w-full font-medium text-white'

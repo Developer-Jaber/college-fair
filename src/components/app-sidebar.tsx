@@ -27,7 +27,6 @@ import {
 import Link from 'next/link'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
-import { getSidebarItems } from '@/lib/roles'
 import { UserRole } from '@/types/auth'
 
 
@@ -52,7 +51,7 @@ interface SidebarData {
 const getSidebarData = (role?: UserRole): SidebarData => {
   const baseData: SidebarData = {
 
-    navMain: role ? getSidebarItems(role) : [],
+    navMain: role ? [] : [],
 
     navClouds: role === "admin" || role === 'staff'? [
       {

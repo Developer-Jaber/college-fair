@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FiFilter, FiAward, FiUsers, FiBook } from 'react-icons/fi'
 import SectionTitle from './SectionTitle'
 import Image from 'next/image'
-import PrimaryButton from './PrimaryButton'
+import PrimaryButton from './customComponents/PrimaryButton'
 
 const GraduateGallery = () => {
   const [activeFilter, setActiveFilter] = useState('all')

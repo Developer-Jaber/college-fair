@@ -1,7 +1,7 @@
 "use client";
 import { animate, motion, useMotionValue, useTransform, Variants } from "framer-motion";
 import Link from "next/link";
-import PrimaryButton from "./PrimaryButton";
+import PrimaryButton from "./customComponents/PrimaryButton";
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from "react";
 

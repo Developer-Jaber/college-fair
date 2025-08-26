@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiDownload, FiExternalLink, FiFilter, FiBarChart2, FiCalendar, FiUser } from 'react-icons/fi';
 import SectionTitle from './SectionTitle';
-import PrimaryButton from './PrimaryButton';
+import PrimaryButton from './customComponents/PrimaryButton';
 
 const ResearchPapers = () => {
   const [activeFilter, setActiveFilter] = useState('all');

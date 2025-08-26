@@ -10,7 +10,7 @@ import sophia from './../../public/avatar/Sophia Rodriguez.png';
 import ethan from './../../public/avatar/Ethan Park.png';
 import olivia from './../../public/avatar/Olivia Smith.png';
 import SectionTitle from './SectionTitle';
-import PrimaryButton from './PrimaryButton';
+import PrimaryButton from './customComponents/PrimaryButton';
 
 
 const CollegeReviews = () => {
