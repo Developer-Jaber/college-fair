@@ -25,7 +25,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import SectionTitle from '@/components/SectionTitle'
 import PrimaryButton from '@/components/customComponents/PrimaryButton'
-
+import { Select } from '@/components/customComponents/Select'
 
 export default function CollegeListing () {
   const [showFilters, setShowFilters] = useState(false)
@@ -59,10 +59,15 @@ export default function CollegeListing () {
   const filteredColleges = colleges
     .filter(colleges =>
       colleges.name.toLocaleLowerCase().includes(searchQuery.toLowerCase())
-    )//<-- close filter here
-    .sort((a, b)=>
+    ) //<-- close filter here
+    .sort((a, b) =>
       sortBy === 'rating' ? b.rating - a.rating : b.research - a.research
     )
+
+  const options = [
+    { value: 'rating', label: 'Highest Rating', icon: <FiStar /> },
+    { value: 'research', label: 'Most Rating', icon: <FiBook /> }
+  ]
 
   return (
     <div className='bg-[var(--bg-color)] px-4 sm:px-6 lg:px-8 py-32 min-h-screen'>
@@ -114,30 +119,17 @@ export default function CollegeListing () {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className='bg-white shadow-sm mb-8 p-2 rounded-xl overflow-hidden'
+              className='bg-white shadow-sm mb-8 p-2 rounded-xl'
             >
               <div className='gap-4 grid grid-cols-1 md:grid-cols-3'>
-                <div>
-                  <label
-                    htmlFor='sortBy'
-                    className='block mb-1 font-medium text-gray-700'
-                  >
-                    Sort By
-                  </label>
-                  <select
-                    id='sortBy'
-                    className='p-2 border rounded-lg w-full'
-                    value={sortBy}
-                    onChange={e =>
-                      dispatch(
-                        setSortBy(e.target.value as 'rating' | 'research')
-                      )
-                    }
-                  >
-                    <option value='rating'>Highest Rating</option>
-                    <option value='research'>Most Research</option>
-                  </select>
-                </div>
+                <Select
+                  options={options}
+                  value={sortBy}
+                  onChange={value =>
+                    dispatch(setSortBy(value as 'rating' | 'research'))
+                  }
+                  placeholder='Select an option'
+                />
                 {/* Add more filters as needed */}
               </div>
             </motion.div>
