@@ -6,7 +6,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface CollegesState {
     colleges: College[]
-    loading: boolean
+    isLoading: boolean
     error: string | null
     searchQuery: string
     sortBy: 'rating' | 'research',
@@ -15,11 +15,11 @@ interface CollegesState {
 
 const initialState: CollegesState = {
     colleges: [],
-    loading: false,
-    error: null,
     searchQuery: '',
     sortBy: 'rating',
-    selectedCollege: null
+    selectedCollege: null,
+    isLoading: false,     
+    error: null
 }
 
 
@@ -28,15 +28,15 @@ const collegesSlice = createSlice({
     initialState,
     reducers: {
         fetchCollegesStart(state) {
-            state.loading = true
+            state.isLoading = true
             state.error = null
         },
         fetchCollegesSuccess(state, action: PayloadAction<College[]>) {
             state.colleges = action.payload
-            state.loading = false
+            state.isLoading = false
         },
         fetchCollegesFailure(state, action: PayloadAction<string>) {
-            state.loading = false
+            state.isLoading = false
             state.error = action.payload
         },
         setSearchQuery(state, action: PayloadAction<string>) {
