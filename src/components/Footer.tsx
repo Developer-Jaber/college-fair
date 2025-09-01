@@ -3,11 +3,68 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import collegeLogo from "../../public/logo/college-fair-logo.png"
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PrimaryButton from "./customComponents/PrimaryButton";
+import { CustomAlert } from "./customComponents/CustomAlert";
 
 const Footer = () => {
   const [isMounted, setIsMounted] = useState(false)
+  const [email, setEmail] = useState('')
+   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [alertState, setAlertState] = useState<
+  {
+   show: boolean
+   variant: 'success' | 'error'
+   title: string
+   description: string}
+  >({
+    show: false,
+    variant: 'success',
+    title: '',
+    description: ''
+  })
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if(!email || !email.includes('@')){
+      setAlertState({
+        show: true,
+        variant: 'error',
+        title: 'Invalid email',
+        description: 'Please enter a valid email address.'
+      })
+      return 
+    }
+
+     setIsSubmitting(true)
+
+      try {
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    setAlertState({
+      show: true,
+      variant: 'success',
+      title: 'Success!',
+      description: 'You have been subscribed successfully.'
+    })
+    setEmail('')
+  } catch (err) {
+    console.log(err);
+    setAlertState({
+      show: true,
+      variant: 'error',
+      title: 'Error',
+      description: 'Something went wrong. Please try again.'
+    })
+  } finally {
+    setIsSubmitting(false)
+  }
+  }
+
+  const closeAlert = () => {
+    setAlertState(prev => ({ ...prev, show: false }))
+  }
+
 
   useEffect(() => {
     setIsMounted(true)
@@ -75,6 +132,7 @@ const Footer = () => {
 
 
   return (
+    <>
     <footer className="relative bg-gradient-to-b from-[#f0fce6] to-[#4325ba]/10 pt-20 pb-10 overflow-hidden">
       {/* Floating bubbles background */}
       {isMounted && (
@@ -170,14 +228,17 @@ const Footer = () => {
             <p className="mb-4 text-gray-600">
               Subscribe to our newsletter for the latest updates.
             </p>
-            <form className="space-y-3">
+            <form onSubmit={handleSubmit} className="space-y-3">
               <input
                 type="email"
                 placeholder="Your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="px-4 py-3 border border-gray-300 focus:border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-primary w-full"
                 required
+                disabled={isSubmitting}
               />
-              <PrimaryButton className="px-4 py-3 w-full font-medium">Subscribe</PrimaryButton>
+              <PrimaryButton className="px-4 py-3 w-full font-medium">{isSubmitting ? 'Subscribing...' : 'Subscribe'}</PrimaryButton>
             </form>
           </div>
         </div>
@@ -201,6 +262,16 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+
+    {/* alert */}
+    <CustomAlert
+    isOpen={alertState.show}
+    onClose={closeAlert}
+    title={alertState.title}
+    description={alertState.description}
+    variant={alertState.variant}
+    />
+    </>
   );
 };
 
