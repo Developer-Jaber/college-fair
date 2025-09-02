@@ -2,10 +2,11 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { FiAlertTriangle, FiHome, FiCompass } from 'react-icons/fi'
+import PrimaryButton from '@/components/customComponents/PrimaryButton'
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col justify-center items-center bg-gradient-to-br from-indigo-50 to-blue-100 p-6 min-h-screen text-center">
+    <div className="flex flex-col justify-center items-center bg-gradient-to-br from-green-50 to-green-100 p-6 min-h-screen text-center">
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -24,7 +25,7 @@ export default function NotFound() {
               repeatType: "reverse",
               duration: 2
             }}
-            className="drop-shadow-md font-bold text-indigo-600 text-9xl"
+            className="left-1/3 drop-shadow-md font-bold text-[var(--secondary)] text-9xl"
           >
             4
           </motion.div>
@@ -39,7 +40,7 @@ export default function NotFound() {
               duration: 1.5,
               delay: 0.5
             }}
-            className="top-0 left-1/3 absolute drop-shadow-md font-bold text-blue-600 text-9xl"
+            className="top-0 left-2/3 absolute drop-shadow-md font-bold text-[var(--primary)] text-9xl"
           >
             0
           </motion.div>
@@ -53,7 +54,7 @@ export default function NotFound() {
               repeatType: "reverse",
               duration: 2.5
             }}
-            className="top-0 left-2/3 absolute drop-shadow-md font-bold text-violet-600 text-9xl"
+            className="top-0 left-4/5 absolute drop-shadow-md font-bold text-[var(--secondary)] text-9xl"
           >
             4
           </motion.div>
@@ -85,15 +86,22 @@ export default function NotFound() {
         >
           <Link
             href="/"
-            className="flex justify-center items-center gap-2 bg-indigo-600 hover:bg-indigo-700 shadow-md px-6 py-3 rounded-lg text-white transition-all"
           >
-            <FiHome /> Back to Home
+            <PrimaryButton
+            className="flex justify-center items-center gap-2 shadow-md px-6 py-3 rounded-lg transition-all"
+            >
+              <FiHome /> Back to Home
+            </PrimaryButton>
           </Link>
           <Link
             href="/explore"
-            className="flex justify-center items-center gap-2 bg-white hover:bg-gray-100 shadow-sm px-6 py-3 border border-gray-300 rounded-lg text-gray-800 transition-all"
           >
-            <FiCompass /> Explore Content
+            <PrimaryButton
+            variant='secondary'
+            className="flex justify-center items-center gap-2 shadow-sm px-6 py-3 transition-all"
+            >
+              <FiCompass /> Explore Content
+            </PrimaryButton>
           </Link>
         </motion.div>
 

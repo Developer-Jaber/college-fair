@@ -15,6 +15,7 @@ import {
   submitAdmissionSuccess
 } from '../../features/admission/admissionSlice'
 import { useSession } from 'next-auth/react'
+import SectionTitle from '@/components/SectionTitle'
 
 // Define form schema
 const formSchema = z.object({
@@ -120,14 +121,7 @@ export default function AdmissionPortal () {
     <div className='bg-gradient-to-br from-gray-50 to-gray-100 px-4 sm:px-6 lg:px-8 py-42 min-h-screen'>
       <div className='mx-auto max-w-4xl'>
         {/* Header */}
-        <div className='mb-12 text-center'>
-          <h1 className='mb-4 font-bold text-[ver(--text)] text-4xl md:text-5xl'>
-            Admission Portal
-          </h1>
-          <p className='text-gray-600 text-xl'>
-            Begin your academic journey with us
-          </p>
-        </div>
+        <SectionTitle title='Admission Portal' subtitle='Begin your academic journey with us'></SectionTitle>
 
         {/* College Selection */}
         {!selectedCollege ? (
