@@ -7,6 +7,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { useState } from 'react'
+import PrimaryButton from '@/components/customComponents/PrimaryButton'
 
 // Form validation schema
 const contactSchema = z.object({
@@ -72,8 +73,8 @@ export default function ContactPage() {
           >
             <div className="bg-white shadow-lg hover:shadow-xl p-8 rounded-xl transition-shadow">
               <div className="flex items-start space-x-4">
-                <div className="bg-blue-100 p-3 rounded-full">
-                  <FiMail className="text-blue-600 text-xl" />
+                <div className="bg-green-100 p-3 rounded-full">
+                  <FiMail className="text-[var(--accent)] text-xl" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 text-lg">Email Us</h3>
@@ -86,7 +87,7 @@ export default function ContactPage() {
             <div className="bg-white shadow-lg hover:shadow-xl p-8 rounded-xl transition-shadow">
               <div className="flex items-start space-x-4">
                 <div className="bg-green-100 p-3 rounded-full">
-                  <FiMapPin className="text-green-600 text-xl" />
+                  <FiMapPin className="text-[var(--accent)] text-xl" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 text-lg">Visit Us</h3>
@@ -98,8 +99,8 @@ export default function ContactPage() {
 
             <div className="bg-white shadow-lg hover:shadow-xl p-8 rounded-xl transition-shadow">
               <div className="flex items-start space-x-4">
-                <div className="bg-purple-100 p-3 rounded-full">
-                  <FiPhone className="text-purple-600 text-xl" />
+                <div className="bg-green-100 p-3 rounded-full">
+                  <FiPhone className="text-[var(--accent)] text-xl" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 text-lg">Call Us</h3>
@@ -130,12 +131,13 @@ export default function ContactPage() {
                 <p className="mb-6 text-gray-600">
                   Thank you for reaching out. We&apos;ll get back to you soon.
                 </p>
-                <button
+                <PrimaryButton
+                  variant='primary'
                   onClick={() => setIsSubmitted(false)}
-                  className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg text-white transition-colors"
+                  className="px-6 py-3 rounded-lg transition-colors"
                 >
                   Send Another Message
-                </button>
+                </PrimaryButton>
               </motion.div>
             ) : (
               <>
@@ -149,7 +151,7 @@ export default function ContactPage() {
                       id="name"
                       {...register('name')}
                       type="text"
-                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent ${
                         errors.name ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder="Your name"
@@ -167,7 +169,7 @@ export default function ContactPage() {
                       id="email"
                       {...register('email')}
                       type="email"
-                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent ${
                         errors.email ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder="your@email.com"
@@ -185,7 +187,7 @@ export default function ContactPage() {
                       id="phone"
                       {...register('phone')}
                       type="tel"
-                      className="px-4 py-3 border border-gray-300 focus:border-transparent rounded-lg focus:ring-2 focus:ring-blue-500 w-full"
+                      className="px-4 py-3 border border-gray-300 focus:border-transparent rounded-lg focus:ring-[var(--primary)] focus:ring-2 w-full"
                       placeholder="+1 (___) ___-____"
                     />
                   </div>
@@ -198,7 +200,7 @@ export default function ContactPage() {
                       id="message"
                       {...register('message')}
                       rows={5}
-                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent ${
                         errors.message ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder="How can we help you?"
@@ -209,13 +211,14 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <button
+                    <PrimaryButton
+                      variant='secondary'
                       type="submit"
                       disabled={isSubmitting}
                       className={`w-full flex items-center justify-center px-6 py-3 rounded-lg font-medium text-white ${
                         isSubmitting
-                          ? 'bg-blue-400 cursor-not-allowed'
-                          : 'bg-blue-600 hover:bg-blue-700 shadow-md'
+                          ? 'bg-[var(--primary)] cursor-not-allowed'
+                          : 'shadow-md'
                       }`}
                     >
                       {isSubmitting ? (
@@ -225,7 +228,7 @@ export default function ContactPage() {
                           Send Message <FiSend className="ml-2" />
                         </>
                       )}
-                    </button>
+                    </PrimaryButton>
                   </div>
                 </form>
               </>
