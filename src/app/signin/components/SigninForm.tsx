@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -121,10 +123,10 @@ export default function SigninForm () {
             <input
               {...register('email')}
               type='email'
-              className={`pl-10 w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+              className={`pl-10 w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all ${
                 errors.email
                   ? 'border-red-500'
-                  : 'border-gray-300 hover:border-blue-300'
+                  : 'border-gray-300 hover:border-[var(--primary)]'
               }`}
               placeholder='your@email.com'
             />
@@ -146,10 +148,10 @@ export default function SigninForm () {
             <input
               {...register('password')}
               type='password'
-              className={`pl-10 w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+              className={`pl-10 w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all ${
                 errors.password
                   ? 'border-red-500'
-                  : 'border-gray-300 hover:border-blue-300'
+                  : 'border-gray-300 hover:border-[var(--primary)]'
               }`}
               placeholder='••••••••'
             />
@@ -168,7 +170,7 @@ export default function SigninForm () {
               id='remember-me'
               name='remember-me'
               type='checkbox'
-              className='border-gray-300 rounded focus:ring-blue-500 w-4 h-4 text-blue-600'
+              className='border-gray-300 rounded focus:ring-[var(--accent)] w-4 h-4 text-[var(--text)]'
             />
             <label
               htmlFor='remember-me'
@@ -211,7 +213,7 @@ export default function SigninForm () {
           Don&apos;t have an account?{' '}
           <Link
             href='/register'
-            className='font-medium text-blue-600 hover:text-blue-800 transition-colors'
+            className='font-medium hover:text-blue-800 transition-colors text-[var(--accent-color)]'
           >
             Create one
           </Link>
